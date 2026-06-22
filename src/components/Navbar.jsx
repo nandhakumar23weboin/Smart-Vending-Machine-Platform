@@ -68,8 +68,8 @@ export default function Navbar() {
         <div
           className={`mx-auto max-w-7xl transition-all duration-500 ${
             isScrolled
-              ? "border border-cherry/20 bg-white/10 shadow-lg shadow-black/5 backdrop-blur-xl supports-[backdrop-filter]:bg-white/10 sm:rounded-2xl md:rounded-3xl"
-              : "border-b border-red-500 bg-white/5 backdrop-blur-md supports-[backdrop-filter]:bg-white/5 sm:border-white/10"
+              ? "border border-cherry/20 bg-white/10 shadow-lg shadow-black/5 backdrop-blur-xl supports-backdrop-filter:bg-white/10 sm:rounded-2xl md:rounded-3xl"
+              : "border-b border-red-500 bg-white/5 backdrop-blur-md supports-backdrop-filter:bg-white/5 sm:border-white/10"
           }`}
         >
           <div className="flex items-center justify-between px-3 py-2.5 sm:px-6 sm:py-3 lg:px-8">
@@ -83,7 +83,7 @@ export default function Navbar() {
               {/* Logo Icon */}
               <div className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-cherry shadow-md shadow-cherry/25 sm:h-10 sm:w-10 sm:rounded-xl sm:shadow-lg">
                 <Sparkles className="h-4 w-4 text-white sm:h-5 sm:w-6" strokeWidth={2} />
-                <div className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-green-400 sm:h-3 sm:w-3 sm:h-3.5 sm:w-3.5" />
+                
               </div>
               {/* Text Logo - Always visible */}
               <span className="text-base font-bold tracking-tight text-ink sm:text-lg">
@@ -331,7 +331,7 @@ export default function Navbar() {
                     Smart Vending Machine Platform
                   </p>
                   <p className="mt-1 text-center text-xs text-neutral-400">
-                    © 2024 SmartVend. All rights reserved.
+                    © 2026 SmartVend. All rights reserved.
                   </p>
                 </motion.div>
               </div>

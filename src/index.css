@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Hide model-viewer progress bar */
+model-viewer::part(default-progress-bar) {
+  display: none !important;
+}
+
 /* Body / UI font */
 @font-face {
   font-family: "Satoshi";
