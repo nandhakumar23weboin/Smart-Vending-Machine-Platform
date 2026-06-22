@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/* Body / UI font */
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+/* Heading font — TikTok Sans Variable (opsz + slnt axes) */
+@font-face {
+  font-family: "TikTok Sans";
+  src: url("/fonts/TikTokSans-VariableFont_opsz,slnt.woff2")
+    format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@theme {
+  /* Fonts */
+  --font-sans: "Satoshi", "Inter", sans-serif;
+  --font-heading: "TikTok Sans", "Satoshi", "Inter", sans-serif;
+
+  /* Colors */
+  --color-oat: #f2ecdd;       /* Alpine Oat background */
+  --color-cherry: #c8102e;    /* Cherry Red accent */
+  --color-cherry-dark: #a60e26; /* hover state for cherry */
+  --color-ink: #2b2118;       /* warm near-black for headings */
+}
