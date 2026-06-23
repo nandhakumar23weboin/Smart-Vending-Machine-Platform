@@ -153,7 +153,7 @@ const Featured = () => {
         <div className="relative mx-auto max-w-screen-xl rounded-3xl bg-white border border-[#e5e7eb] overflow-hidden shadow-xl shadow-black/5">
           <div className="grid lg:grid-cols-2 gap-0">
             {/* Left - Text Content */}
-            <div className="p-8 lg:p-16 flex flex-col justify-center order-2 lg:order-1">
+            <div className="p-8 lg:p-16 flex flex-col justify-center order-2 lg:order-1"> 
               <div 
                 className="transition-all duration-300"
                 style={{
