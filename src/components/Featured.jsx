@@ -1,6 +1,9 @@
 // src/components/featured.jsx
 import { useState } from "react";
 import { Zap, Pointer, Layout, ArrowRight } from "lucide-react";
+import eventImage from "../assets/event.jpeg";
+import yourBrandImage from "../assets/yourbrand.jpeg";
+import automaticImage from "../assets/automatic.jpeg";
 
 // Custom Badge Component
 const Badge = ({ children, variant = "default", className = "" }) => {
@@ -54,7 +57,7 @@ const Featured = () => {
         title: "Perfect for Events & Venues",
         description: "Our smart vending machines are ideal for events, providing quick and efficient service. Boost revenue with automated retail that works 24/7.",
         buttonText: "Call now",
-        imageSrc: "/src/assets/event-vendingmachine.jpeg",
+        imageSrc: eventImage,
         imageAlt: "Event vending machine"
       }
     },
@@ -67,7 +70,7 @@ const Featured = () => {
         title: "Elevate Your Brand Experience",
         description: "Customize your vending machines with your brand identity. Create a seamless brand experience that resonates with your customers.",
         buttonText: "Call now",
-        imageSrc: "/src/assets/your brand.jpeg",
+        imageSrc: yourBrandImage,
         imageAlt: "Branded vending machine"
       }
     },
@@ -80,7 +83,7 @@ const Featured = () => {
         title: "Complete Automation Solutions",
         description: "Deploy fully automatic vending machines that handle everything from inventory management to payment processing. Maximum efficiency, minimum effort.",
         buttonText: "Call now",
-        imageSrc: "/src/assets/fully automatic machine.jpeg",
+        imageSrc: automaticImage,
         imageAlt: "Fully automatic vending machine"
       }
     }
