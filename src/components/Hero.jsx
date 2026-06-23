@@ -211,7 +211,7 @@ export default function Hero() {
             <motion.button
               whileHover={{ scale: 1.035, y: -1 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center justify-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-text transition-all hover:bg-primary/5 hover:text-primary sm:px-4 sm:py-2 sm:text-sm"
+              className="inline-flex items-center justify-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-text transition-all bg-[#FAF3F3] hover:bg-primary/5 hover:text-primary sm:px-4 sm:py-2 sm:text-sm"
             >
               Call us
             </motion.button>

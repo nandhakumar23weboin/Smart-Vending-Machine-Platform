@@ -113,7 +113,7 @@ const Featured = () => {
           <Badge variant="outline" className="animate-fade-in-up">
             Smart Vending Solutions
           </Badge>
-          <h1 className="max-w-2xl text-3xl md:text-4xl lg:text-5xl font-bold text-[#111827] leading-tight animate-fade-in-up" style={{animationDelay: "0.1s"}}>
+          <h1 className="max-w-2xl text-3xl md:text-4xl lg:text-4xl font-bold text-[#111827] leading-tight animate-fade-in-up" style={{animationDelay: "0.1s"}}>
             Next-Generation Automated Retail Experience
           </h1>
           <p className="text-[#6b7280] text-lg max-w-xl animate-fade-in-up" style={{animationDelay: "0.2s"}}>
