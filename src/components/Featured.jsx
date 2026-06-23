@@ -53,7 +53,7 @@ const Featured = () => {
         badge: "Event Ready",
         title: "Perfect for Events & Venues",
         description: "Our smart vending machines are ideal for events, providing quick and efficient service. Boost revenue with automated retail that works 24/7.",
-        buttonText: "Learn More",
+        buttonText: "Call now",
         imageSrc: "/src/assets/event-vendingmachine.jpeg",
         imageAlt: "Event vending machine"
       }
@@ -66,7 +66,7 @@ const Featured = () => {
         badge: "Custom Branding",
         title: "Elevate Your Brand Experience",
         description: "Customize your vending machines with your brand identity. Create a seamless brand experience that resonates with your customers.",
-        buttonText: "Customize Now",
+        buttonText: "Call now",
         imageSrc: "/src/assets/your brand.jpeg",
         imageAlt: "Branded vending machine"
       }
@@ -79,7 +79,7 @@ const Featured = () => {
         badge: "Fully Automated",
         title: "Complete Automation Solutions",
         description: "Deploy fully automatic vending machines that handle everything from inventory management to payment processing. Maximum efficiency, minimum effort.",
-        buttonText: "Call Now",
+        buttonText: "Call now",
         imageSrc: "/src/assets/fully automatic machine.jpeg",
         imageAlt: "Fully automatic vending machine"
       }
@@ -206,15 +206,6 @@ const Featured = () => {
                     />
                     {/* Hover overlay */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-[#991b1b]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    {/* Play button overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-xl transform hover:scale-110 transition-transform duration-300">
-                        <svg className="w-6 h-6 text-[#991b1b] ml-1" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z"/>
-                        </svg>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -240,31 +231,7 @@ const Featured = () => {
           </div>
         </div>
 
-        {/* Feature Cards */}
-         <div className="hidden md:grid md:grid-cols-3 gap-6 mt-12 animate-fade-in-up" style={{animationDelay: "0.4s"}}>
-          {tabs.map((tab, index) => (
-            <div
-              key={tab.id}
-              onClick={() => handleTabChange(index)}
-              className={`
-                group cursor-pointer p-6 rounded-2xl transition-all duration-300
-                ${activeTab === index 
-                  ? 'bg-white shadow-lg shadow-[#991b1b]/10 border border-[#991b1b]/20' 
-                  : 'bg-white/50 hover:bg-white hover:shadow-md border border-transparent hover:border-gray-200'
-                }
-              `}
-            >
-              <div className={`
-                w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300
-                ${activeTab === index ? 'bg-[#991b1b] text-white' : 'bg-[#991b1b]/10 text-[#991b1b] group-hover:bg-[#991b1b]/20'}
-              `}>
-                {tab.icon}
-              </div>
-              <h4 className="font-semibold text-[#111827] mb-2">{tab.label}</h4>
-              <p className="text-sm text-[#6b7280] line-clamp-2">{tab.content.description}</p>
-            </div>
-          ))}
-        </div>
+
       </div>
 
       <style>{`
