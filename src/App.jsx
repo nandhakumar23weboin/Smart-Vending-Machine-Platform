@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
-import Featured from "./components/Featured";
+import Featured from "./components/Featured"; 
 
 export default function App() {
   return (
