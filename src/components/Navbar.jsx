@@ -64,10 +64,10 @@ export default function Navbar() {
         }`}
       >
         <div
-          className={`glass-nav mx-auto max-w-7xl transition-all duration-500 ${
+          className={`mx-auto max-w-7xl transition-all duration-500 ${
             isScrolled
-              ? "sm:rounded-2xl md:rounded-3xl"
-              : "sm:rounded-2xl md:rounded-3xl"
+              ? "glass-nav sm:rounded-2xl md:rounded-3xl"
+              : "bg-transparent border-transparent shadow-none"
           }`}
         >
           <div className="flex items-center justify-between px-3 py-2.5 sm:px-6 sm:py-3 lg:px-8">
