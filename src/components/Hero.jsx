@@ -202,7 +202,7 @@ export default function Hero() {
             <motion.button
               whileHover={{ scale: 1.035, y: -1 }}
               whileTap={{ scale: 0.97 }}
-              className="group inline-flex items-center justify-center gap-1.5 rounded-full bg-cta px-3 py-1.5 text-xs font-semibold text-white transition-all hover:bg-cta-hover sm:px-4 sm:py-2 sm:text-sm"
+              className="group inline-flex items-center justify-center gap-1 rounded-full bg-cta px-3 py-1.5 text-xs font-semibold text-white transition-all hover:bg-cta-hover sm:px-4 sm:py-2 sm:text-sm lg:ml-15"
             >
               Request a Machine
               <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1 sm:h-3.5 sm:w-3.5" />
