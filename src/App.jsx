@@ -1,14 +1,14 @@
 import React from "react";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
-import featured from "./components/featured"
+import Featured from "./components/Featured";
 
 export default function App() {
   return (
     <main className="min-h-screen w-full bg-background text-text antialiased">
       <Navbar />
       <Hero />
-      <featured /> 
+      <Featured />
       {/* <Testimonials /> */}
       {/* <Footer /> */}
     </main>
