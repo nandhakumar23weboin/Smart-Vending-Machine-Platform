@@ -21,7 +21,7 @@ const navLinks = [
       { name: "Micro Markets", href: "#", icon: Sparkles },
     ],
   },
-  { name: "Features test", href: "#" },
+  { name: "Features", href: "#" },
   { name: "Pricing", href: "#" },
   { name: "About", href: "#" },
 ];
