@@ -224,7 +224,7 @@ export default function Hero() {
         {/* Trusted By Section (unchanged order, now spans full width at bottom) */}
         <motion.div
           variants={fadeUp}
-          className="order-4 mt-16 w-full lg:col-span-2 lg:col-start-1 lg:row-start-4 lg:mt-10 lg:text-center"
+          className="order-4 mt-20 w-full lg:col-span-2 lg:col-start-1 lg:row-start-4 lg:mt-10 lg:text-center"
         >
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">
             Trusted By Leading Brands

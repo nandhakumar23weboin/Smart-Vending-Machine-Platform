@@ -15,7 +15,7 @@ const fadeUp = {
 export default function Features() {
   return (
     <section className="relative w-full overflow-hidden bg-background font-sans">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 pt-12 pb-0 sm:px-6 sm:pt-16 sm:pb-0 lg:px-8 lg:pt-20 lg:pb-0">
         {/* Heading */}
         <motion.div
           initial="hidden"
@@ -26,7 +26,7 @@ export default function Features() {
         >
           <motion.div
             variants={fadeUp}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[0.72rem] font-medium text-primary sm:px-5 sm:text-[0.8rem]"
+            className="mb-3 sm:mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[0.72rem] font-medium text-primary sm:px-5 sm:text-[0.8rem]"
           >
             <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />
             Why Choose Us
@@ -34,7 +34,7 @@ export default function Features() {
 
           <motion.h2
             variants={fadeUp}
-            className="mt-4 font-heading text-[1.8rem] leading-tight font-semibold tracking-tight text-text sm:text-[2.5rem] lg:text-[3.2rem]"
+            className="mt-3 sm:mt-4 font-heading text-[1.8rem] leading-tight font-semibold tracking-tight text-text sm:text-[2.5rem] lg:text-[3.2rem]"
           >
             Smart Vending,{" "}
             <span className="bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent">
@@ -44,7 +44,7 @@ export default function Features() {
 
           <motion.p
             variants={fadeUp}
-            className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-text-secondary sm:text-base lg:text-lg"
+            className="mx-auto mt-3 sm:mt-4 max-w-2xl text-sm leading-relaxed text-text-secondary sm:text-base lg:text-lg"
           >
             From AI-powered inventory management to premium coffee experiences,
             our machines are designed to maximize revenue while delivering
@@ -53,16 +53,16 @@ export default function Features() {
         </motion.div>
       </div>
 
-      {/* Full Width Image - Further reduced for desktop */}
+      {/* Full Width Image - Reduced gap from description */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full px-4 sm:px-0"
+        className="w-full px-0 sm:px-6 lg:px-8 mt-6 sm:mt-8 lg:mt-10"
       >
-        <div className="mx-auto max-w-3xl lg:max-w-4xl"> {/* Reduced from max-w-5xl lg:max-w-6xl */}
-          <img
+        <div className="mx-auto max-w-3xl lg:max-w-4xl">
+         <img
             src={featureImage}
             alt="Features"
             className="w-full h-auto object-contain sm:object-cover"

@@ -83,7 +83,7 @@ export default function Navbar() {
               <div className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-primary sm:h-10 sm:w-10 sm:rounded-xl">
                 <Sparkles className="h-4 w-4 text-white sm:h-5 sm:w-6" strokeWidth={2} />
               </div>
-              <span className="text-base font-extrabold tracking-tight text-gray-900 sm:text-lg">
+              <span className="text-base font-black tracking-tight text-gray-900 sm:text-lg">
                 Smart<span className="text-primary">Vend</span>
               </span>
             </motion.a>
@@ -99,7 +99,7 @@ export default function Navbar() {
                 >
                   {link.dropdown ? (
                     <button
-                      className="group relative flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-bold text-gray-900 transition-all duration-300"
+                      className="group relative flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-black text-gray-900 transition-all duration-300"
                     >
                       {link.name}
                       <ChevronDown
@@ -114,7 +114,7 @@ export default function Navbar() {
                   ) : (
                     <a
                       href={link.href}
-                      className="group relative rounded-full px-3 py-2 text-sm font-bold text-gray-900 transition-all duration-300"
+                      className="group relative rounded-full px-3 py-2 text-sm font-black text-gray-900 transition-all duration-300"
                     >
                       {link.name}
                       {/* Red underline animation */}
@@ -137,7 +137,7 @@ export default function Navbar() {
                             <a
                               key={item.name}
                               href={item.href}
-                              className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-bold text-gray-900 transition-all duration-200 hover:bg-red-50 hover:text-primary"
+                              className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-extrabold text-gray-900 transition-all duration-200 hover:bg-red-50 hover:text-primary"
                             >
                               <item.icon className="h-4 w-4 text-primary" strokeWidth={2} />
                               {item.name}
@@ -157,7 +157,7 @@ export default function Navbar() {
                 href="#contact"
                 whileHover={{ scale: 1.035 }}
                 whileTap={{ scale: 0.97 }}
-                className="hidden items-center gap-2 rounded-full bg-cta px-4 py-2 text-sm font-bold text-white transition-all hover:bg-cta-hover sm:flex"
+                className="hidden items-center gap-2 rounded-full bg-cta px-4 py-2 text-sm font-black text-white transition-all hover:bg-cta-hover sm:flex"
               >
                 <Phone className="h-4 w-4" strokeWidth={2.5} />
                 <span>Get Started</span>
@@ -243,7 +243,7 @@ export default function Navbar() {
                                 mobileDropdown === link.name ? null : link.name
                               )
                             }
-                            className="flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-base font-extrabold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
+                            className="flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-base font-black text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
                           >
                             {link.name}
                             <ChevronDown
@@ -268,7 +268,7 @@ export default function Navbar() {
                                       key={item.name}
                                       href={item.href}
                                       onClick={closeMobileMenu}
-                                      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
+                                      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-extrabold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
                                     >
                                       <item.icon className="h-4 w-4 text-primary" strokeWidth={2} />
                                       {item.name}
@@ -283,7 +283,7 @@ export default function Navbar() {
                         <a
                           href={link.href}
                           onClick={closeMobileMenu}
-                          className="block rounded-2xl px-4 py-3.5 text-base font-extrabold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
+                          className="block rounded-2xl px-4 py-3.5 text-base font-black text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
                         >
                           {link.name}
                         </a>
@@ -301,7 +301,7 @@ export default function Navbar() {
                   <a
                     href="#contact"
                     onClick={closeMobileMenu}
-                    className="flex w-full items-center justify-center gap-2 rounded-2xl bg-cta px-6 py-4 text-base font-extrabold text-white transition-all hover:bg-cta-hover"
+                    className="flex w-full items-center justify-center gap-2 rounded-2xl bg-cta px-6 py-4 text-base font-black text-white transition-all hover:bg-cta-hover"
                   >
                     <Phone className="h-5 w-5" strokeWidth={2.5} />
                     Get Started
