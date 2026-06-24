@@ -109,9 +109,10 @@ export default function Hero() {
         variants={container}
         initial="hidden"
         animate="visible"
-        className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-y-5 px-4 pt-24 pb-12 sm:px-6 md:px-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.9fr)] lg:gap-x-10 lg:gap-y-4 lg:pt-24 lg:pb-20 xl:gap-x-14"
+        className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-y-5 px-4 pt-24 pb-12 sm:px-6 md:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] lg:gap-x-10 lg:gap-y-4 lg:pt-24 lg:pb-20 xl:gap-x-14"
       >
-        <div className="order-1 w-full max-w-xl text-center lg:order-2 lg:col-start-2 lg:row-start-1 lg:self-end lg:text-left">
+        {/* Content - Left Side on Desktop (order-1, lg:order-1) */}
+        <div className="order-1 w-full max-w-xl mx-auto text-center lg:order-1 lg:col-start-1 lg:row-start-1 lg:self-end lg:text-left lg:mx-0">
           <motion.div
             variants={fadeUp}
             className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-[0.72rem] font-medium text-primary sm:px-4 sm:text-[0.8rem]"
@@ -133,7 +134,8 @@ export default function Hero() {
           </motion.h1>
         </div>
 
-        <div className="relative order-2 mx-auto flex w-full max-w-[24rem] items-center justify-center sm:max-w-lg md:max-w-152 lg:order-1 lg:col-start-1 lg:row-start-1 lg:row-span-3 lg:mt-0 lg:max-w-none">
+        {/* Image - Right Side on Desktop (order-2, lg:order-2) */}
+        <div className="relative order-2 mx-auto flex w-full max-w-[24rem] items-center justify-center sm:max-w-lg md:max-w-152 lg:order-2 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:mt-0 lg:max-w-none">
           <motion.div
             initial={{ opacity: 0, scale: 0.92, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -186,7 +188,8 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <div className="order-3 w-full max-w-xl text-center lg:col-start-2 lg:row-start-2 lg:self-start lg:text-left">
+        {/* Description & Buttons - Left Side (order-3, lg:order-3) */}
+        <div className="order-3 w-full max-w-xl mx-auto text-center lg:col-start-1 lg:row-start-2 lg:self-start lg:text-left lg:mx-0">
           <motion.p
             variants={fadeUp}
             className="mt-1 text-sm leading-relaxed text-text-secondary sm:text-lg lg:mt-6 lg:max-w-lg"
@@ -218,6 +221,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
+        {/* Trusted By Section (unchanged order, now spans full width at bottom) */}
         <motion.div
           variants={fadeUp}
           className="order-4 mt-16 w-full lg:col-span-2 lg:col-start-1 lg:row-start-4 lg:mt-10 lg:text-center"

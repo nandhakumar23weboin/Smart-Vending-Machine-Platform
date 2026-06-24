@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
@@ -32,24 +32,26 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileDropdown, setMobileDropdown] = useState(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  const handleScroll = useCallback(() => {
+    setIsScrolled(window.scrollY > 20);
   }, []);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
+
+  const closeMobileMenu = useCallback(() => {
+    setIsOpen(false);
+    setMobileDropdown(null);
+  }, []);
 
   return (
     <>
@@ -64,13 +66,14 @@ export default function Navbar() {
         }`}
       >
         <div
-          className={`mx-auto max-w-7xl transition-all duration-500 ${
+          className={`mx-auto max-w-7xl transition-all duration-500 border-b border-red-500 ${
             isScrolled
-              ? "glass-nav sm:rounded-2xl md:rounded-3xl"
+              ? "glass-nav sm:rounded-2xl md:rounded-3xl border-b-0"
               : "bg-transparent border-transparent shadow-none"
           }`}
         >
           <div className="flex items-center justify-between px-3 py-2.5 sm:px-6 sm:py-3 lg:px-8">
+            {/* Logo */}
             <motion.a
               href="#"
               className="flex items-center gap-1.5 sm:gap-2.5 group"
@@ -80,11 +83,12 @@ export default function Navbar() {
               <div className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-primary sm:h-10 sm:w-10 sm:rounded-xl">
                 <Sparkles className="h-4 w-4 text-white sm:h-5 sm:w-6" strokeWidth={2} />
               </div>
-              <span className="text-base font-bold tracking-tight text-text sm:text-lg">
+              <span className="text-base font-extrabold tracking-tight text-gray-900 sm:text-lg">
                 Smart<span className="text-primary">Vend</span>
               </span>
             </motion.a>
 
+            {/* Desktop Navigation */}
             <div className="hidden items-center gap-1 lg:flex">
               {navLinks.map((link) => (
                 <div
@@ -95,7 +99,7 @@ export default function Navbar() {
                 >
                   {link.dropdown ? (
                     <button
-                      className="group flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-text-secondary transition-all duration-300 hover:text-text"
+                      className="group relative flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-bold text-gray-900 transition-all duration-300"
                     >
                       {link.name}
                       <ChevronDown
@@ -104,16 +108,21 @@ export default function Navbar() {
                         }`}
                         strokeWidth={2.5}
                       />
+                      {/* Red underline animation */}
+                      <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-primary transition-all duration-300 group-hover:w-3/4" />
                     </button>
                   ) : (
                     <a
                       href={link.href}
-                      className="rounded-full px-3 py-2 text-sm font-medium text-text-secondary transition-all duration-300 hover:text-text"
+                      className="group relative rounded-full px-3 py-2 text-sm font-bold text-gray-900 transition-all duration-300"
                     >
                       {link.name}
+                      {/* Red underline animation */}
+                      <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-primary transition-all duration-300 group-hover:w-3/4" />
                     </a>
                   )}
 
+                  {/* Dropdown - Clean white background without glassmorphism */}
                   {link.dropdown && (
                     <AnimatePresence>
                       {activeDropdown === link.name && (
@@ -122,13 +131,13 @@ export default function Navbar() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 8, scale: 0.96 }}
                           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                          className="glass absolute top-full left-1/2 mt-2 w-48 -translate-x-1/2 rounded-2xl p-2"
+                          className="absolute top-full left-1/2 mt-2 w-48 -translate-x-1/2 rounded-2xl bg-white border border-gray-200 p-2 shadow-lg shadow-gray-200/50"
                         >
                           {link.dropdown.map((item) => (
                             <a
                               key={item.name}
                               href={item.href}
-                              className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-text-secondary transition-all duration-200 hover:bg-primary/5 hover:text-text"
+                              className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-bold text-gray-900 transition-all duration-200 hover:bg-red-50 hover:text-primary"
                             >
                               <item.icon className="h-4 w-4 text-primary" strokeWidth={2} />
                               {item.name}
@@ -142,17 +151,19 @@ export default function Navbar() {
               ))}
             </div>
 
+            {/* Right Side Actions */}
             <div className="flex items-center gap-1.5 sm:gap-3">
               <motion.a
                 href="#contact"
                 whileHover={{ scale: 1.035 }}
                 whileTap={{ scale: 0.97 }}
-                className="hidden items-center gap-2 rounded-full bg-cta px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-cta-hover sm:flex"
+                className="hidden items-center gap-2 rounded-full bg-cta px-4 py-2 text-sm font-bold text-white transition-all hover:bg-cta-hover sm:flex"
               >
                 <Phone className="h-4 w-4" strokeWidth={2.5} />
                 <span>Get Started</span>
               </motion.a>
 
+              {/* Mobile Menu Toggle */}
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsOpen(!isOpen)}
@@ -168,7 +179,7 @@ export default function Navbar() {
                       exit={{ rotate: 90, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <X className="h-4 w-4 text-text sm:h-5 sm:w-5" strokeWidth={2.5} />
+                      <X className="h-4 w-4 text-gray-900 sm:h-5 sm:w-5" strokeWidth={2.5} />
                     </motion.div>
                   ) : (
                     <motion.div
@@ -178,7 +189,7 @@ export default function Navbar() {
                       exit={{ rotate: -90, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <Menu className="h-4 w-4 text-text sm:h-5 sm:w-5" strokeWidth={2.5} />
+                      <Menu className="h-4 w-4 text-gray-900 sm:h-5 sm:w-5" strokeWidth={2.5} />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -188,6 +199,7 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -197,7 +209,7 @@ export default function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden"
-              onClick={() => setIsOpen(false)}
+              onClick={closeMobileMenu}
             />
 
             <motion.div
@@ -205,14 +217,14 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 z-50 h-full w-full max-w-sm overflow-y-auto glass-nav border-l lg:hidden"
+              className="fixed right-0 top-0 z-50 h-full w-full max-w-sm overflow-y-auto bg-white border-l border-gray-200 shadow-xl lg:hidden"
             >
               <div className="flex flex-col p-6 pt-20">
                 <button
-                  onClick={() => setIsOpen(false)}
-                  className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl glass transition-colors hover:bg-white/60"
+                  onClick={closeMobileMenu}
+                  className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 transition-colors hover:bg-gray-200"
                 >
-                  <X className="h-5 w-5 text-text" strokeWidth={2.5} />
+                  <X className="h-5 w-5 text-gray-900" strokeWidth={2.5} />
                 </button>
 
                 <nav className="flex flex-col gap-1">
@@ -231,7 +243,7 @@ export default function Navbar() {
                                 mobileDropdown === link.name ? null : link.name
                               )
                             }
-                            className="flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-base font-semibold text-text transition-all hover:bg-primary/5 hover:text-primary"
+                            className="flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-base font-extrabold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
                           >
                             {link.name}
                             <ChevronDown
@@ -255,7 +267,8 @@ export default function Navbar() {
                                     <a
                                       key={item.name}
                                       href={item.href}
-                                      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-text-secondary transition-all hover:bg-primary/5 hover:text-text"
+                                      onClick={closeMobileMenu}
+                                      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
                                     >
                                       <item.icon className="h-4 w-4 text-primary" strokeWidth={2} />
                                       {item.name}
@@ -269,8 +282,8 @@ export default function Navbar() {
                       ) : (
                         <a
                           href={link.href}
-                          onClick={() => setIsOpen(false)}
-                          className="block rounded-2xl px-4 py-3.5 text-base font-semibold text-text transition-all hover:bg-primary/5 hover:text-primary"
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl px-4 py-3.5 text-base font-extrabold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
                         >
                           {link.name}
                         </a>
@@ -287,8 +300,8 @@ export default function Navbar() {
                 >
                   <a
                     href="#contact"
-                    onClick={() => setIsOpen(false)}
-                    className="flex w-full items-center justify-center gap-2 rounded-2xl bg-cta px-6 py-4 text-base font-semibold text-white transition-all hover:bg-cta-hover"
+                    onClick={closeMobileMenu}
+                    className="flex w-full items-center justify-center gap-2 rounded-2xl bg-cta px-6 py-4 text-base font-extrabold text-white transition-all hover:bg-cta-hover"
                   >
                     <Phone className="h-5 w-5" strokeWidth={2.5} />
                     Get Started
@@ -301,10 +314,10 @@ export default function Navbar() {
                   transition={{ delay: 0.5 }}
                   className="mt-auto pt-8"
                 >
-                  <p className="text-center text-sm text-text-secondary">
+                  <p className="text-center text-sm font-bold text-gray-900">
                     Smart Vending Machine Platform
                   </p>
-                  <p className="mt-1 text-center text-xs text-text-secondary/60">
+                  <p className="mt-1 text-center text-xs font-semibold text-gray-500">
                     © 2026 SmartVend. All rights reserved.
                   </p>
                 </motion.div>
