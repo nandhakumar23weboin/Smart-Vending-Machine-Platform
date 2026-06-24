@@ -61,8 +61,8 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "mt-0 px-3 sm:mt-4 sm:px-4 md:px-6"
-            : "mt-0 px-3 sm:mt-4 sm:px-4 md:px-6"
+            ? "mt-0 px-0 sm:mt-4 sm:px-4 md:px-6"
+            : "mt-0 px-0 sm:mt-4 sm:px-4 md:px-6"
         }`}
       >
         <div
@@ -72,7 +72,7 @@ export default function Navbar() {
               : "bg-transparent border-transparent shadow-none"
           }`}
         >
-          <div className="flex items-center justify-between px-3 py-2.5 sm:px-6 sm:py-3 lg:px-8">
+          <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-3 lg:px-8">
             {/* Logo */}
             <motion.a
               href="#"
@@ -80,13 +80,13 @@ export default function Navbar() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-primary sm:h-10 sm:w-10 sm:rounded-xl">
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-primary sm:h-10 sm:w-10 sm:rounded-xl">
                 <Sparkles
-                  className="h-4 w-4 text-white sm:h-5 sm:w-6"
+                  className="h-5 w-5 text-white sm:h-5 sm:w-6"
                   strokeWidth={2}
                 />
               </div>
-              <span className="text-base font-black tracking-tight text-gray-900 sm:text-lg">
+              <span className="text-lg font-black tracking-tight text-gray-900 sm:text-lg">
                 Smart<span className="text-primary">Vend</span>
               </span>
             </motion.a>
@@ -176,7 +176,7 @@ export default function Navbar() {
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsOpen(!isOpen)}
-                className="relative flex h-8 w-8 items-center justify-center rounded-lg glass transition-all duration-300 lg:hidden sm:h-10 sm:w-10 sm:rounded-xl"
+                className="relative flex h-12 w-12 items-center justify-center rounded-xl glass transition-all duration-300 lg:hidden sm:h-10 sm:w-10 sm:rounded-xl"
                 aria-label="Toggle menu"
               >
                 <AnimatePresence mode="wait">
@@ -189,7 +189,7 @@ export default function Navbar() {
                       transition={{ duration: 0.2 }}
                     >
                       <X
-                        className="h-4 w-4 text-gray-900 sm:h-5 sm:w-5"
+                        className="h-6 w-6 text-gray-900 sm:h-5 sm:w-5"
                         strokeWidth={2.5}
                       />
                     </motion.div>
@@ -202,7 +202,7 @@ export default function Navbar() {
                       transition={{ duration: 0.2 }}
                     >
                       <Menu
-                        className="h-4 w-4 text-gray-900 sm:h-5 sm:w-5"
+                        className="h-6 w-6 text-gray-900 sm:h-5 sm:w-5"
                         strokeWidth={2.5}
                       />
                     </motion.div>

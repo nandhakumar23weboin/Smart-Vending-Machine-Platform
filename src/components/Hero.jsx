@@ -74,8 +74,9 @@ function LogoMarquee() {
 
   return (
     <div className="relative mt-5 w-full overflow-hidden">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-red-50 to-transparent sm:w-20 lg:w-28" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-red-50 to-transparent sm:w-20 lg:w-28" />
+      {/* White gradient overlays for mobile */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-white to-transparent sm:w-20 lg:w-28" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-white to-transparent sm:w-20 lg:w-28" />
 
       <motion.div
         className="flex w-max items-center gap-14 sm:gap-20 lg:gap-24"
@@ -104,14 +105,14 @@ function LogoMarquee() {
 
 export default function Hero() {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-background font-sans">
+    <section className="relative w-full min-h-screen overflow-hidden bg-white font-sans">
       <motion.div
         variants={container}
         initial="hidden"
         animate="visible"
-        className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-y-5 px-4 pt-24 pb-12 sm:px-6 md:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] lg:gap-x-10 lg:gap-y-4 lg:pt-24 lg:pb-20 xl:gap-x-14"
+        className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-y-5 px-4 pt-28 pb-12 sm:px-6 md:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] lg:gap-x-10 lg:gap-y-4 lg:pt-32 lg:pb-20 xl:gap-x-14"
       >
-        {/* Content - Left Side on Desktop (order-1, lg:order-1) */}
+        {/* Content - Left Side on Desktop */}
         <div className="order-1 w-full max-w-xl mx-auto text-center lg:order-1 lg:col-start-1 lg:row-start-1 lg:self-end lg:text-left lg:mx-0">
           <motion.div
             variants={fadeUp}
@@ -134,7 +135,7 @@ export default function Hero() {
           </motion.h1>
         </div>
 
-        {/* Image - Right Side on Desktop (order-2, lg:order-2) */}
+        {/* Image - Right Side on Desktop */}
         <div className="relative order-2 mx-auto flex w-full max-w-[24rem] items-center justify-center sm:max-w-lg md:max-w-152 lg:order-2 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:mt-0 lg:max-w-none">
           <motion.div
             initial={{ opacity: 0, scale: 0.92, y: 30 }}
@@ -174,12 +175,12 @@ export default function Hero() {
               >
                 <motion.div
                   whileHover={{ scale: 1.06, y: -2 }}
-                  className="glass-card flex items-center gap-2 rounded-xl px-2.5 py-2 transition-all duration-300 hover:border-red-500 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] sm:gap-2.5 sm:rounded-2xl sm:px-4 sm:py-3"
+                  className="glass-card flex items-center gap-1.5 rounded-lg px-2 py-1.5 transition-all duration-300 hover:border-red-500 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] sm:gap-2.5 sm:rounded-2xl sm:px-4 sm:py-3"
                 >
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary sm:h-8 sm:w-8">
-                    <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.3} />
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary sm:h-8 sm:w-8">
+                    <Icon className="h-3 w-3 sm:h-4 sm:w-4" strokeWidth={2.3} />
                   </span>
-                  <span className="whitespace-nowrap text-xs font-semibold text-text sm:text-sm">
+                  <span className="whitespace-nowrap text-[0.65rem] font-semibold text-text sm:text-sm">
                     {label}
                   </span>
                 </motion.div>
@@ -188,7 +189,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Description & Buttons - Left Side (order-3, lg:order-3) */}
+        {/* Description & Buttons - Left Side */}
         <div className="order-3 w-full max-w-xl mx-auto text-center lg:col-start-1 lg:row-start-2 lg:self-start lg:text-left lg:mx-0">
           <motion.p
             variants={fadeUp}
@@ -203,30 +204,31 @@ export default function Hero() {
             className="mt-5 flex flex-row items-center justify-center gap-2 sm:gap-3 lg:mt-7 lg:justify-start"
           >
             <motion.button
-              whileHover={{ scale: 1.035, y: -1 }}
-              whileTap={{ scale: 0.97 }}
-              className="group inline-flex items-center justify-center gap-1 rounded-full bg-cta px-3 py-1.5 text-xs font-semibold text-white transition-all hover:bg-cta-hover sm:px-4 sm:py-2 sm:text-sm lg:ml-15"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-primary to-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:from-primary/90 hover:to-accent/90 sm:px-6 sm:py-3 sm:text-base"
             >
-              Request a Machine
-              <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1 sm:h-3.5 sm:w-3.5" />
+              <span className="relative z-10">Request a Machine</span>
+              <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <div className="absolute inset-0 -z-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </motion.button>
 
             <motion.button
-              whileHover={{ scale: 1.035, y: -1 }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center justify-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-text transition-all bg-[#FAF3F3] hover:bg-primary/5 hover:text-primary sm:px-4 sm:py-2 sm:text-sm"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center justify-center gap-1.5 rounded-full border-2 border-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-700 transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary sm:px-6 sm:py-3 sm:text-base"
             >
               Call us
             </motion.button>
           </motion.div>
         </div>
 
-        {/* Trusted By Section (unchanged order, now spans full width at bottom) */}
+        {/* Trusted By Section */}
         <motion.div
           variants={fadeUp}
-          className="order-4 mt-20 w-full lg:col-span-2 lg:col-start-1 lg:row-start-4 lg:mt-10 lg:text-center"
+          className="order-4 mt-20 w-full lg:col-span-2 lg:col-start-1 lg:row-start-4 lg:mt-10"
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">
             Trusted By Leading Brands
           </p>
           <LogoMarquee />
@@ -234,4 +236,4 @@ export default function Hero() {
       </motion.div>
     </section>
   );
-} 
+}

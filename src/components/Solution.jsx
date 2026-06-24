@@ -1,13 +1,13 @@
 // src/components/featured.jsx
 import { useState, useRef } from "react";
-import { Zap, Pointer, Layout, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Zap, Pointer, Layout, ArrowRight, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import eventImage from "../assets/event.jpeg";
 import yourBrandImage from "../assets/yourbrand.jpeg";
 import automaticImage from "../assets/automatic.jpeg";
 
 // Custom Badge Component
 const Badge = ({ children, variant = "default", className = "" }) => {
-  const baseStyles = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors";
+  const baseStyles = "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[0.72rem] font-medium sm:px-4 sm:text-[0.8rem]";
   const variantStyles = {
     default: "border-transparent bg-[#991b1b] text-white",
     outline: "border border-[#991b1b]/20 bg-[#991b1b]/5 text-[#991b1b]"
@@ -53,7 +53,7 @@ const Solution = () => {
   const tabs = [
     {
       id: "tab-1",
-      icon: <Zap className="h-4 w-4" />,
+      icon: <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />,
       label: "Smart Events",
       content: {
         badge: "Event Ready",
@@ -66,7 +66,7 @@ const Solution = () => {
     },
     {
       id: "tab-2",
-      icon: <Pointer className="h-4 w-4" />,
+      icon: <Pointer className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />,
       label: "Your Brand",
       content: {
         badge: "Custom Branding",
@@ -79,7 +79,7 @@ const Solution = () => {
     },
     {
       id: "tab-3",
-      icon: <Layout className="h-4 w-4" />,
+      icon: <Layout className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />,
       label: "Full Auto",
       content: {
         badge: "Fully Automated",
@@ -141,9 +141,10 @@ const Solution = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Header Section */}
         <div className="flex flex-col items-center gap-3 text-center mb-6 md:mb-8">
-          <Badge variant="outline" className="animate-fade-in-up">
-            Smart Vending Solutions
-          </Badge>
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#991b1b]/20 bg-[#991b1b]/5 px-3 py-1.5 text-[0.72rem] font-medium text-[#991b1b] sm:px-4 sm:text-[0.8rem] animate-fade-in-up">
+            <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />
+            Next-Gen Vending &amp; Coffee Solutions
+          </span>
           <h1 className="max-w-2xl text-2xl md:text-3xl lg:text-4xl font-bold text-[#111827] leading-tight animate-fade-in-up px-4" style={{animationDelay: "0.1s"}}>
             Find the Right Machine for Your Needs
           </h1>
@@ -178,98 +179,101 @@ const Solution = () => {
         </div>
 
         {/* Content Section */}
-        <div 
-          className="relative mx-auto max-w-4xl lg:max-w-5xl rounded-2xl md:rounded-2xl bg-white border border-[#e5e7eb] overflow-hidden shadow-lg shadow-black/5"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          {/* Desktop Navigation - Top Right */}
-          <div className="hidden md:flex absolute top-3 right-3 z-20 gap-1.5">
+        <div className="relative mx-auto max-w-4xl lg:max-w-5xl">
+          {/* Desktop Navigation - Outside Container Top Right */}
+          <div className="hidden md:flex absolute -top-14 right-0 z-20 gap-2">
             <button
               onClick={handlePrev}
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-[#991b1b] shadow-md hover:bg-[#b91c1c] transition-all duration-300 hover:scale-105"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-[#991b1b] shadow-lg hover:bg-[#b91c1c] transition-all duration-300 hover:scale-110"
               aria-label="Previous slide"
             >
-              <ChevronLeft className="w-4 h-4 text-white" />
+              <ChevronLeft className="w-6 h-6 text-white" />
             </button>
             <button
               onClick={handleNext}
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-[#991b1b] shadow-md hover:bg-[#b91c1c] transition-all duration-300 hover:scale-105"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-[#991b1b] shadow-lg hover:bg-[#b91c1c] transition-all duration-300 hover:scale-110"
               aria-label="Next slide"
             >
-              <ChevronRight className="w-4 h-4 text-white" />
+              <ChevronRight className="w-6 h-6 text-white" />
             </button>
           </div>
 
-          {/* Mobile Navigation - Right Side Compact */}
-          <div className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-1.5">
+          {/* Mobile Navigation - Right Side Horizontal */}
+          <div className="md:hidden flex justify-end gap-3 mb-3">
             <button
               onClick={handlePrev}
-              className="w-7 h-7 flex items-center justify-center rounded-full bg-[#991b1b] shadow-md hover:bg-[#b91c1c] transition-all duration-300 active:scale-95"
+              className="w-11 h-11 flex items-center justify-center rounded-full bg-[#991b1b] shadow-lg hover:bg-[#b91c1c] transition-all duration-300 active:scale-95"
               aria-label="Previous slide"
             >
-              <ChevronLeft className="w-3.5 h-3.5 text-white" />
+              <ChevronLeft className="w-5 h-5 text-white" />
             </button>
             <button
               onClick={handleNext}
-              className="w-7 h-7 flex items-center justify-center rounded-full bg-[#991b1b] shadow-md hover:bg-[#b91c1c] transition-all duration-300 active:scale-95"
+              className="w-11 h-11 flex items-center justify-center rounded-full bg-[#991b1b] shadow-lg hover:bg-[#b91c1c] transition-all duration-300 active:scale-95"
               aria-label="Next slide"
             >
-              <ChevronRight className="w-3.5 h-3.5 text-white" />
+              <ChevronRight className="w-5 h-5 text-white" />
             </button>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-0">
-            {/* Left - Text Content */}
-            <div className="p-5 md:p-6 lg:p-8 flex flex-col justify-center order-2 lg:order-1">
-              <div 
-                className="transition-all duration-300"
-                style={{
-                  opacity: isAnimating ? 0 : 1,
-                  transform: isAnimating ? `translateX(${direction * -20}px)` : 'translateX(0)',
-                }}
-              >
-                <Badge variant="outline" className="mb-3 bg-white shadow-sm text-xs">
-                  {currentTab.content.badge}
-                </Badge>
-                
-                <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#111827] mb-2 md:mb-3 leading-tight">
-                  {currentTab.content.title}
-                </h3>
-                
-                <p className="text-[#6b7280] text-sm md:text-sm lg:text-base mb-4 md:mb-5 leading-relaxed">
-                  {currentTab.content.description}
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
-                  <Button variant="default" size="lg" className="group w-full sm:w-auto text-sm">
-                    {currentTab.content.buttonText}
-                    <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Right - Image Content */}
-            <div className="relative order-1 lg:order-2 p-4 md:p-5 lg:p-6 flex items-center justify-center min-h-[180px] md:min-h-[240px] lg:min-h-[280px]">
-              <div className="relative group w-full max-w-[280px] md:max-w-[350px] lg:max-w-[380px] mx-auto">
+          <div 
+            className="rounded-2xl bg-white border border-[#e5e7eb] overflow-hidden shadow-lg shadow-black/5"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div className="grid lg:grid-cols-2 gap-0">
+              {/* Left - Text Content */}
+              <div className="p-5 md:p-6 lg:p-8 flex flex-col justify-center order-2 lg:order-1">
                 <div 
-                  className="relative transition-all duration-300 w-full"
+                  className="transition-all duration-300"
                   style={{
                     opacity: isAnimating ? 0 : 1,
-                    transform: isAnimating ? `translateX(${direction * 20}px)` : 'translateX(0)',
+                    transform: isAnimating ? `translateX(${direction * -20}px)` : 'translateX(0)',
                   }}
                 >
-                  <div className="relative rounded-lg md:rounded-xl overflow-hidden shadow-lg shadow-black/10 w-full">
-                    <img
-                      src={currentTab.content.imageSrc}
-                      alt={currentTab.content.imageAlt}
-                      className="w-full h-full object-cover max-h-[160px] md:max-h-[220px] lg:max-h-[260px]"
-                      onError={(e) => {
-                        e.target.src = "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop";
-                      }}
-                    />
+                  <span className="inline-flex items-center gap-2 rounded-full border border-[#991b1b]/20 bg-[#991b1b]/5 px-3 py-1.5 text-[0.72rem] font-medium text-[#991b1b] sm:px-4 sm:text-[0.8rem] mb-3 bg-white shadow-sm">
+                    {currentTab.icon}
+                    {currentTab.content.badge}
+                  </span>
+                  
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#111827] mb-2 md:mb-3 leading-tight">
+                    {currentTab.content.title}
+                  </h3>
+                  
+                  <p className="text-[#6b7280] text-sm md:text-sm lg:text-base mb-4 md:mb-5 leading-relaxed">
+                    {currentTab.content.description}
+                  </p>
+                  
+                  <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
+                    <Button variant="default" size="lg" className="group w-full sm:w-auto text-sm">
+                      {currentTab.content.buttonText}
+                      <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right - Image Content */}
+              <div className="relative order-1 lg:order-2 p-4 md:p-5 lg:p-6 flex items-center justify-center min-h-[180px] md:min-h-[240px] lg:min-h-[280px]">
+                <div className="relative group w-full max-w-[280px] md:max-w-[350px] lg:max-w-[380px] mx-auto">
+                  <div 
+                    className="relative transition-all duration-300 w-full"
+                    style={{
+                      opacity: isAnimating ? 0 : 1,
+                      transform: isAnimating ? `translateX(${direction * 20}px)` : 'translateX(0)',
+                    }}
+                  >
+                    <div className="relative rounded-lg md:rounded-xl overflow-hidden shadow-lg shadow-black/10 w-full">
+                      <img
+                        src={currentTab.content.imageSrc}
+                        alt={currentTab.content.imageAlt}
+                        className="w-full h-full object-cover max-h-[160px] md:max-h-[220px] lg:max-h-[260px]"
+                        onError={(e) => {
+                          e.target.src = "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop";
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
