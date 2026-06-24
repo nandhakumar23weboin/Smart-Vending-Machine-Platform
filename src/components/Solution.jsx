@@ -54,7 +54,7 @@ const Solution = () => {
     {
       id: "tab-1",
       icon: <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />,
-      label: "Smart Events",
+      
       content: {
         badge: "Event Ready",
         title: "Perfect for Events & Venues",
@@ -67,7 +67,7 @@ const Solution = () => {
     {
       id: "tab-2",
       icon: <Pointer className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />,
-      label: "Your Brand",
+      
       content: {
         badge: "Custom Branding",
         title: "Elevate Your Brand Experience",
@@ -80,7 +80,7 @@ const Solution = () => {
     {
       id: "tab-3",
       icon: <Layout className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />,
-      label: "Full Auto",
+      
       content: {
         badge: "Fully Automated",
         title: "Complete Automation Solutions",
