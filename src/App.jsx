@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import Solution from "./components/Solution"; 
 import Feature from "./components/Feature";
+import HowitsWork from "./components/HowitsWork";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Hero />
       <Solution />
       <Feature />
+      <HowitsWork />
       {/* <Testimonials /> */}
       {/* <Footer /> */}
     </main>

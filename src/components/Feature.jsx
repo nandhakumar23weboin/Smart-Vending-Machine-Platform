@@ -29,16 +29,16 @@ export default function Features() {
             className="mb-3 sm:mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[0.72rem] font-medium text-primary sm:px-5 sm:text-[0.8rem]"
           >
             <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />
-            Why Choose Us
+            Benefits of Vending
           </motion.div>
 
           <motion.h2
             variants={fadeUp}
-            className="mt-3 sm:mt-4 font-heading text-[1.8rem] leading-tight font-semibold tracking-tight text-text sm:text-[2.5rem] lg:text-[3.2rem]"
+            className="mt-3 sm:mt-4 font-heading text-[1.8rem] leading-tight font-semibold tracking-tight text-text sm:text-[2.5rem] lg:text-[2.6rem]"
           >
             Smart Vending,{" "}
             <span className="bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent">
-              Simplified
+               Benefits
             </span>
           </motion.h2>
 

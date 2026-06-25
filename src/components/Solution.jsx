@@ -54,10 +54,10 @@ const Solution = () => {
     {
       id: "tab-1",
       icon: <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />,
-      
+      label: "Event & Venue",
       content: {
         badge: "Event Ready",
-        title: "Perfect for Events & Venues",
+        title: "Perfect for <span class='text-[#991b1b]'>Events & Venues</span>",
         description: "Our smart vending machines are ideal for events, providing quick and efficient service. Boost revenue with automated retail that works 24/7.",
         buttonText: "Call now",
         imageSrc: eventImage,
@@ -67,10 +67,10 @@ const Solution = () => {
     {
       id: "tab-2",
       icon: <Pointer className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />,
-      
+      label: "Your Brand",
       content: {
         badge: "Custom Branding",
-        title: "Elevate Your Brand Experience",
+        title: "Elevate <span class='text-[#991b1b]'>Your Brand</span> Experience",
         description: "Customize your vending machines with your brand identity. Create a seamless brand experience that resonates with your customers.",
         buttonText: "Call now",
         imageSrc: yourBrandImage,
@@ -80,10 +80,10 @@ const Solution = () => {
     {
       id: "tab-3",
       icon: <Layout className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />,
-      
+      label: "Automation",
       content: {
         badge: "Fully Automated",
-        title: "Complete Automation Solutions",
+        title: "Complete <span class='text-[#991b1b]'>Automation</span> Solutions",
         description: "Deploy fully automatic vending machines that handle everything from inventory management to payment processing. Maximum efficiency, minimum effort.",
         buttonText: "Call now",
         imageSrc: automaticImage,
@@ -145,8 +145,16 @@ const Solution = () => {
             <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />
             Next-Gen Vending &amp; Coffee Solutions
           </span>
-          <h1 className="max-w-2xl text-2xl md:text-3xl lg:text-4xl font-bold text-[#111827] leading-tight animate-fade-in-up px-4" style={{animationDelay: "0.1s"}}>
-            Find the Right Machine for Your Needs
+          <h1 
+            className="max-w-2xl text-2xl md:text-4xl lg:text-[36px] font-semibold text-[#111827] leading-tight md:leading-[45px] animate-fade-in-up px-4" 
+            style={{
+              animationDelay: "0.1s", 
+              fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', sans-serif", 
+              fontWeight: 600,
+            }}
+          >
+            Find the Right Machine for <br className="hidden md:block" />
+            <span className="text-[#991b1b]">Your Needs</span>
           </h1>
           <p className="text-[#6b7280] text-sm md:text-base max-w-xl animate-fade-in-up px-4" style={{animationDelay: "0.2s"}}>
             Transform your business with intelligent vending technology.
@@ -167,6 +175,7 @@ const Solution = () => {
                   : 'text-[#6b7280] hover:text-[#111827] hover:bg-gray-100'
                 }
               `}
+              style={{fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', sans-serif", fontWeight: 600}}
             >
               <span className={`transition-colors duration-300 ${
                 activeTab === index ? 'text-[#991b1b]' : 'text-[#6b7280] group-hover:text-[#111827]'
@@ -237,16 +246,18 @@ const Solution = () => {
                     {currentTab.content.badge}
                   </span>
                   
-                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#111827] mb-2 md:mb-3 leading-tight">
-                    {currentTab.content.title}
-                  </h3>
+                  <h3 
+                    className="text-xl md:text-2xl lg:text-3xl font-bold text-[#111827] mb-2 md:mb-3 leading-tight"
+                    style={{fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', sans-serif", fontWeight: 600}}
+                    dangerouslySetInnerHTML={{ __html: currentTab.content.title }}
+                  />
                   
                   <p className="text-[#6b7280] text-sm md:text-sm lg:text-base mb-4 md:mb-5 leading-relaxed">
                     {currentTab.content.description}
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
-                    <Button variant="default" size="lg" className="group w-full sm:w-auto text-sm">
+                    <Button variant="default" size="lg" className="group w-full sm:w-auto text-sm" style={{fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', sans-serif", fontWeight: 600}}>
                       {currentTab.content.buttonText}
                       <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                     </Button>
