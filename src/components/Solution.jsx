@@ -193,17 +193,17 @@ const Solution = () => {
           <div className="hidden md:flex absolute -top-14 right-0 z-20 gap-2">
             <button
               onClick={handlePrev}
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-[#991b1b] shadow-lg hover:bg-[#b91c1c] transition-all duration-300 hover:scale-110"
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-white shadow-md hover:bg-gray-50 transition-all duration-300 active:scale-95"
               aria-label="Previous slide"
             >
-              <ChevronLeft className="w-6 h-6 text-white" />
+              <ChevronLeft className="w-4 h-4 text-[#991b1b]" />
             </button>
             <button
               onClick={handleNext}
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-[#991b1b] shadow-lg hover:bg-[#b91c1c] transition-all duration-300 hover:scale-110"
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-white shadow-md hover:bg-gray-50 transition-all duration-300 active:scale-95"
               aria-label="Next slide"
             >
-              <ChevronRight className="w-6 h-6 text-white" />
+              <ChevronRight className="w-4 h-4 text-[#991b1b]" />
             </button>
           </div>
 
@@ -211,17 +211,17 @@ const Solution = () => {
           <div className="md:hidden flex justify-end gap-3 mb-3">
             <button
               onClick={handlePrev}
-              className="w-11 h-11 flex items-center justify-center rounded-full bg-[#991b1b] shadow-lg hover:bg-[#b91c1c] transition-all duration-300 active:scale-95"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md hover:bg-gray-50 transition-all duration-300 active:scale-90"
               aria-label="Previous slide"
             >
-              <ChevronLeft className="w-5 h-5 text-white" />
+              <ChevronLeft className="w-3.5 h-3.5 text-[#991b1b]" />
             </button>
             <button
               onClick={handleNext}
-              className="w-11 h-11 flex items-center justify-center rounded-full bg-[#991b1b] shadow-lg hover:bg-[#b91c1c] transition-all duration-300 active:scale-95"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md hover:bg-gray-50 transition-all duration-300 active:scale-90"
               aria-label="Next slide"
             >
-              <ChevronRight className="w-5 h-5 text-white" />
+              <ChevronRight className="w-3.5 h-3.5 text-[#991b1b]" />
             </button>
           </div>
 

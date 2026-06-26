@@ -37,7 +37,7 @@ export default function Features() {
             className="mt-3 sm:mt-4 font-heading text-[1.8rem] leading-tight font-semibold tracking-tight text-text sm:text-[2.5rem] lg:text-[2.6rem]"
           >
             Smart Vending,{" "}
-            <span className="bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent">
+            <span className="bg-linear-to-br from-primary to-accent bg-clip-text text-transparent">
                Benefits
             </span>
           </motion.h2>

@@ -1,177 +1,302 @@
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { PhoneCall, Sparkles, ArrowRight, CheckCircle } from "lucide-react";
-import howItWorksImage from "../assets/how its work.png"; // Adjust path if needed
+import React, { useRef, useState, useEffect } from "react"
+import {
+  MapPin,
+  Settings2,
+  Truck,
+  Coffee,
+  CreditCard,
+  Activity,
+  ArrowRight
+} from "lucide-react"
 
-const HowitsWork = () => {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+const PROCESS_STEPS = [
+  {
+    id: "step-1",
+    number: "01",
+    title: "Identify the Perfect Spot",
+    description:
+      "Find the ideal, high-traffic location in your office lobby, breakroom, gym, university, or hospital. We conduct a quick, free site assessment to optimize placement and ensure power and connectivity requirements are met.",
+    icon: MapPin,
+    badge: "Free Site Survey",
+    features: ["Space optimization", "Connectivity check", "Power compatibility"]
+  },
+  {
+    id: "step-2",
+    number: "02",
+    title: "Select Your Machine",
+    description:
+      "Choose from our diverse line of smart vending machines. Whether you need a premium bean-to-cup espresso brewer, fresh food combos, or standard snack-and-drink solutions, we customize the hardware to fit your crowd.",
+    icon: Settings2,
+    badge: "Flexible Hardware",
+    features: ["Premium coffee makers", "Smart cold beverage units", "Fresh food combos"]
+  },
+  {
+    id: "step-3",
+    number: "03",
+    title: "Zero-Cost Installation",
+    description:
+      "We handle everything. Our experienced team delivers, positions, and installs your machine completely free of charge. No setup fees, no delivery costs, and no hidden contracts. It is entirely risk-free.",
+    icon: Truck,
+    badge: "100% Free Delivery",
+    features: ["Professional setup", "Zero setup fees", "No-stress onboarding"]
+  },
+  {
+    id: "step-4",
+    number: "04",
+    title: "Tailored Smart Stocking",
+    description:
+      "We design a curated menu of snacks, drinks, and meals based on your team's feedback. Choose from global brands, local favorites, or healthy, vegan, and organic selections. We customize the product catalog for your venue.",
+    icon: Coffee,
+    badge: "Curated Menu",
+    features: ["Custom product selection", "Healthy snacks & salads", "Fresh daily restocks"]
+  },
+  {
+    id: "step-5",
+    number: "05",
+    title: "Frictionless Tap & Pay",
+    description:
+      "Buying snacks is seamless. Customers check out instantly using modern cashless options: credit/debit cards, Apple Pay, Google Pay, smart cards, or department charge accounts. No more jammed coin slots.",
+    icon: CreditCard,
+    badge: "Cashless Convenience",
+    features: ["Apple & Google Pay", "Tap-to-pay credit cards", "Secure transactions"]
+  },
+  {
+    id: "step-6",
+    number: "06",
+    title: "AI Restocking & Analytics",
+    description:
+      "Our machines are connected to a cloud-based telemetry network. We receive automated real-time notifications about low inventory, hot-selling items, and machine health, triggering restocking visits before you run dry.",
+    icon: Activity,
+    badge: "AI Telemetry",
+    features: ["Real-time inventory alerts", "Preventive maintenance"]
+  },
+]
 
-  // --- Animation Variants ---
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-        when: "beforeChildren",
-      },
-    },
-  };
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 30, scale: 0.98 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        duration: 0.6,
-      },
-    },
-  };
-
-  const imageVariant = {
-    hidden: { opacity: 0, x: 60, rotateY: 5 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      rotateY: 0,
-      transition: {
-        type: "spring",
-        stiffness: 80,
-        damping: 20,
-        duration: 0.8,
-      },
-    },
-  };
-
-  const buttonHover = {
-    rest: { scale: 1, boxShadow: "0 1px 4px rgba(153, 27, 27, 0.15)" },
-    hover: {
-      scale: 1.03,
-      boxShadow: "0 2px 12px rgba(153, 27, 27, 0.25)",
-      transition: { type: "spring", stiffness: 400, damping: 10 },
-    },
-    tap: { scale: 0.97 },
-  };
+// Process Card Component - Clean stack without blur/shadow
+const ProcessCard = React.memo(({ step, stackPosition, totalCards }) => {
+  const IconComponent = step.icon
+  
+  const getCardStyle = () => {
+    if (stackPosition === 0) {
+      // Front card - active and centered
+      return {
+        transform: 'translateY(0px) scale(1)',
+        opacity: 1,
+        zIndex: totalCards + 10,
+        top: '50%',
+        marginTop: '-200px', // Half of card height to center
+      }
+    }
+    
+    if (stackPosition < 0) {
+      // Cards that have passed - hidden above
+      return {
+        transform: 'translateY(-100%) scale(0.85)',
+        opacity: 0,
+        zIndex: 0,
+        pointerEvents: 'none',
+        top: '0',
+      }
+    }
+    
+    // Cards behind the front card - stacked neatly
+    const verticalOffset = stackPosition * 20 // Clean spacing between cards
+    const scale = 1 - (stackPosition * 0.03) // Slightly smaller
+    const opacity = 1 - (stackPosition * 0.15) // Gradually fade
+    const zIndex = totalCards - stackPosition
+    
+    return {
+      transform: `translateY(${verticalOffset}px) scale(${scale})`,
+      opacity: Math.max(0.1, opacity),
+      zIndex: zIndex,
+      pointerEvents: 'none',
+      top: '50%',
+      marginTop: '-200px',
+    }
+  }
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full overflow-hidden bg-white py-12 sm:py-16 lg:py-24"
+    <div
+      className="absolute left-0 right-0 mx-auto bg-white rounded-2xl border border-gray-200"
+      style={{
+        ...getCardStyle(),
+        maxWidth: '450px',
+        width: '100%',
+        transformOrigin: 'center center',
+        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+      }}
     >
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
-      >
-        {/* Main Visible Container */}
-        <div className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-lg shadow-gray-200/50 sm:rounded-[2rem]">
-          {/* Subtle top accent line */}
-          <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary opacity-80" />
-          
-          {/* Content Grid */}
-          <div className="flex flex-col items-center gap-8 p-6 sm:p-8 lg:flex-row lg:gap-10 lg:p-10 xl:gap-12 xl:p-12">
-            {/* --- LEFT CONTENT SIDE --- */}
-            <motion.div
-              variants={containerVariants}
-              className="w-full max-w-xl text-center lg:w-1/2 lg:max-w-none lg:text-left lg:pr-4 xl:pr-8"
-            >
-              {/* Small Badge */}
-              <motion.div
-                variants={fadeUp}
-                className="mb-3 sm:mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[0.72rem] font-medium text-primary sm:px-5 sm:text-[0.8rem]"
+      <div className="p-6">
+        {/* Top bar with Icon and Step Number */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <IconComponent className="h-5 w-5" strokeWidth={2.2} />
+          </div>
+          <span className="text-2xl font-extrabold tracking-tight text-gray-200">
+            {step.number}
+          </span>
+        </div>
+
+        {/* Header details */}
+        <div className="mb-3">
+          <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-accent px-2.5 py-1 rounded bg-accent/5 border border-accent/10">
+            {step.badge}
+          </span>
+          <h3 className="mt-2 text-lg sm:text-xl font-bold tracking-tight text-gray-900">
+            {step.title}
+          </h3>
+        </div>
+
+        <p className="text-sm leading-relaxed text-gray-600">
+          {step.description}
+        </p>
+
+        {/* Features checklist */}
+        <div className="mt-4 pt-4 border-t border-gray-100">
+          <div className="flex flex-wrap gap-2">
+            {step.features.map((feature, fIdx) => (
+              <span
+                key={fIdx}
+                className="inline-flex items-center text-[11px] font-medium text-gray-600 bg-gray-50 border border-gray-200 px-2.5 py-1 rounded-md"
               >
-                <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.2} />
-                How It Works
-              </motion.div>
-
-              {/* Main Heading */}
-              <motion.h2
-                variants={fadeUp}
-                className="mt-3 sm:mt-4 font-heading text-[1.8rem] leading-tight font-semibold tracking-tight text-text sm:text-[2.5rem] lg:text-[2.6rem]"
-              >
-                Smart Vending,{" "}
-                <span className="bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent">
-                  Simplified
-                </span>
-              </motion.h2>
-
-              {/* Description Paragraph */}
-              <motion.p
-                variants={fadeUp}
-                className="mx-auto mt-3 sm:mt-4 max-w-xl text-sm leading-relaxed text-text-secondary sm:text-base lg:text-lg lg:mx-0 lg:max-w-md"
-              >
-                From AI-powered inventory management to premium coffee experiences,
-                our machines are designed to maximize revenue while delivering
-                exceptional convenience to your customers.
-              </motion.p>
-
-              {/* Quick Feature List */}
-              <motion.ul
-                variants={containerVariants}
-                className="mt-4 sm:mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 lg:justify-start"
-              >
-                {["Real-time tracking", "99.9% uptime", "Seamless setup"].map(
-                  (feature, idx) => (
-                    <motion.li
-                      key={idx}
-                      variants={fadeUp}
-                      className="flex items-center gap-1.5 text-xs font-medium text-text-secondary sm:text-sm"
-                    >
-                      <CheckCircle className="h-3.5 w-3.5 text-primary sm:h-4 sm:w-4" strokeWidth={2} />
-                      {feature}
-                    </motion.li>
-                  ),
-                )}
-              </motion.ul>
-
-              {/* CTA Button */}
-              <motion.div variants={fadeUp} className="mt-6 sm:mt-8">
-                <motion.button
-                  variants={buttonHover}
-                  initial="rest"
-                  whileHover="hover"
-                  whileTap="tap"
-                  className="group inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-2 text-xs font-semibold text-white shadow-sm shadow-primary/15 transition-colors duration-300 hover:from-cta-hover hover:to-primary sm:px-5 sm:py-2.5 sm:text-sm"
-                >
-                  <PhoneCall className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                  Call Now
-                  <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5 sm:h-3.5 sm:w-3.5" />
-                </motion.button>
-              </motion.div>
-            </motion.div>
-
-            {/* --- RIGHT IMAGE SIDE --- */}
-            <motion.div 
-              variants={imageVariant} 
-              className="w-full max-w-md lg:w-1/2 lg:max-w-none lg:pl-4 xl:pl-8"
-            >
-              <div className="relative mx-auto overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50 p-1.5 shadow-inner sm:rounded-3xl sm:p-2 lg:p-3">
-                {/* Inner image wrapper for rounded corners */}
-                <div className="overflow-hidden rounded-xl sm:rounded-2xl">
-                  <img
-                    src={howItWorksImage}
-                    alt="How our smart vending machine works"
-                    className="h-auto w-full object-cover transition-transform duration-700 ease-out hover:scale-105"
-                    loading="lazy"
-                  />
-                </div>
-                {/* Subtle glow effect behind image */}
-                <div className="absolute -inset-2 -z-10 rounded-3xl bg-gradient-to-br from-primary/5 via-transparent to-accent/5 blur-xl" />
-              </div>
-            </motion.div>
+                <span className="h-1.5 w-1.5 rounded-full bg-primary mr-1.5" />
+                {feature}
+              </span>
+            ))}
           </div>
         </div>
-      </motion.div>
-    </section>
-  );
-};
+      </div>
+    </div>
+  )
+})
 
-export default HowitsWork;
+ProcessCard.displayName = 'ProcessCard'
+
+export default function HowitsWork() {
+  const cardsSectionRef = useRef(null)
+  const stackContainerRef = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  
+  // Calculate stack position for each card
+  const getStackPosition = (cardIndex) => {
+    return cardIndex - activeIndex
+  }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!cardsSectionRef.current || !stackContainerRef.current) return
+      
+      const sectionRect = cardsSectionRef.current.getBoundingClientRect()
+      const containerHeight = 500 // Height of our stack container
+      
+      // Calculate scroll progress through the section
+      const sectionTop = sectionRect.top
+      const sectionHeight = sectionRect.height
+      const viewportHeight = window.innerHeight
+      
+      // How much of the section has been scrolled
+      const scrollProgress = Math.max(0, Math.min(
+        (-sectionTop + viewportHeight * 0.5) / (sectionHeight - containerHeight),
+        1
+      ))
+      
+      const newIndex = Math.min(
+        Math.floor(scrollProgress * PROCESS_STEPS.length),
+        PROCESS_STEPS.length - 1
+      )
+      
+      if (newIndex !== activeIndex) {
+        setActiveIndex(newIndex)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // Initial check
+    
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [activeIndex])
+
+  return (
+    <section id="how-it-works" className="w-full bg-white py-20 px-4 sm:px-6 md:px-10 lg:py-28 font-sans">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          {/* Left Side: Sticky Intro */}
+          <div className="lg:sticky lg:top-24 flex flex-col justify-center lg:min-h-[600px]">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-primary w-fit">
+              How it works
+            </span>
+            <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:leading-[1.1]">
+              Launch Your Smart Vending Solution in{" "}
+              <span className="bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent">
+                6 Simple Steps
+              </span>
+            </h2>
+            <p className="mt-5 max-w-md text-base leading-relaxed text-gray-600">
+              From site evaluation to automated restocking, we manage the entire vending lifecycle. You provide the space; we handle the technology, logistics, maintenance, and refreshments.
+            </p>
+            
+            {/* Step progress dots */}
+            <div className="mt-8 space-y-3">
+              <div className="flex gap-2">
+                {PROCESS_STEPS.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setActiveIndex(index)
+                      if (cardsSectionRef.current) {
+                        const sectionHeight = cardsSectionRef.current.offsetHeight
+                        const scrollTo = cardsSectionRef.current.offsetTop + (index / (PROCESS_STEPS.length - 1)) * (sectionHeight - 500)
+                        window.scrollTo({ top: scrollTo, behavior: 'smooth' })
+                      }
+                    }}
+                    className={`h-2 rounded-full transition-all duration-500 ${
+                      index === activeIndex 
+                        ? 'w-8 bg-primary' 
+                        : index < activeIndex
+                        ? 'w-4 bg-primary/40'
+                        : 'w-2 bg-gray-300 hover:bg-gray-400'
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm font-semibold text-primary">
+                Step {activeIndex + 1} of {PROCESS_STEPS.length}
+              </span>
+            </div>
+            
+            <div className="mt-8 hidden lg:flex items-center gap-3 text-sm font-semibold text-primary">
+              <span>Scroll down to reveal steps</span>
+              <ArrowRight className="h-4 w-4 animate-bounce" />
+            </div>
+          </div>
+
+          {/* Right Side: Clean Card Stack */}
+          <div 
+            ref={cardsSectionRef}
+            className="relative"
+            style={{ 
+              minHeight: `${PROCESS_STEPS.length * 300 + 500}px`,
+            }}
+          >
+            <div 
+              ref={stackContainerRef}
+              className="sticky top-24 w-full flex items-center"
+              style={{ height: '500px' }}
+            >
+              <div className="relative w-full" style={{ height: '450px' }}>
+                {PROCESS_STEPS.map((step, index) => (
+                  <ProcessCard
+                    key={step.id}
+                    step={step}
+                    stackPosition={getStackPosition(index)}
+                    totalCards={PROCESS_STEPS.length}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

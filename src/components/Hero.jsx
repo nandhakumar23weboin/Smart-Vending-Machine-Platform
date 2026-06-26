@@ -110,7 +110,7 @@ export default function Hero() {
         variants={container}
         initial="hidden"
         animate="visible"
-        className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-y-5 px-4 pt-28 pb-12 sm:px-6 md:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] lg:gap-x-10 lg:gap-y-4 lg:pt-32 lg:pb-20 xl:gap-x-14"
+        className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-y-5 px-4 pt-28 pb-12 sm:px-6 md:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] lg:gap-x-10 lg:gap-y-4 lg:pt-32 lg:pb-20 xl:gap-x-14 lg:mt-6"
       >
         {/* Content - Left Side on Desktop */}
         <div className="order-1 w-full max-w-xl mx-auto text-center lg:order-1 lg:col-start-1 lg:row-start-1 lg:self-end lg:text-left lg:mx-0">
@@ -175,12 +175,12 @@ export default function Hero() {
               >
                 <motion.div
                   whileHover={{ scale: 1.06, y: -2 }}
-                  className="glass-card flex items-center gap-1.5 rounded-lg px-2 py-1.5 transition-all duration-300 hover:border-red-500 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] sm:gap-2.5 sm:rounded-2xl sm:px-4 sm:py-3"
+                  className="glass-card flex items-center gap-1 sm:gap-1.5 lg:gap-2 rounded-md sm:rounded-lg lg:rounded-xl px-1.5 py-1 sm:px-2 sm:py-1.5 lg:px-3 lg:py-2 transition-all duration-300 hover:border-red-500 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
                 >
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary sm:h-8 sm:w-8">
-                    <Icon className="h-3 w-3 sm:h-4 sm:w-4" strokeWidth={2.3} />
+                  <span className="flex h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Icon className="h-2.5 w-2.5 sm:h-3 sm:w-3 lg:h-3.5 lg:w-3.5" strokeWidth={2.3} />
                   </span>
-                  <span className="whitespace-nowrap text-[0.65rem] font-semibold text-text sm:text-sm">
+                  <span className="whitespace-nowrap text-[0.6rem] sm:text-[0.7rem] lg:text-xs font-semibold text-text">
                     {label}
                   </span>
                 </motion.div>

@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Solution from "./components/Solution"; 
 import Feature from "./components/Feature";
 import HowitsWork from "./components/HowitsWork";
+import Testimonials from "./components/Testimonials";
 
 export default function App() {
   return (
@@ -13,7 +14,7 @@ export default function App() {
       <Solution />
       <Feature />
       <HowitsWork />
-      {/* <Testimonials /> */}
+      <Testimonials /> 
       {/* <Footer /> */}
     </main>
   );

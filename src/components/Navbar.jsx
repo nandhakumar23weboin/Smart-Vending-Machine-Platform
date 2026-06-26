@@ -12,6 +12,7 @@ import {
 
 const navLinks = [
   { name: "Home", href: "#" },
+  { name: "About", href: "#" },
   {
     name: "Solutions",
     href: "#",
@@ -23,7 +24,7 @@ const navLinks = [
   },
   { name: "Features", href: "#" },
   { name: "Pricing", href: "#" },
-  { name: "About", href: "#" },
+  
 ];
 
 export default function Navbar() {
@@ -169,7 +170,7 @@ export default function Navbar() {
                 className="hidden items-center gap-2 rounded-full bg-cta px-4 py-2 text-sm font-black text-white transition-all hover:bg-cta-hover sm:flex"
               >
                 <Phone className="h-4 w-4" strokeWidth={2.5} />
-                <span>Get Started</span>
+                <span>Call now</span>
               </motion.a>
 
               {/* Mobile Menu Toggle */}
@@ -327,7 +328,7 @@ export default function Navbar() {
                     className="flex w-full items-center justify-center gap-2 rounded-2xl bg-cta px-6 py-4 text-base font-black text-white transition-all hover:bg-cta-hover"
                   >
                     <Phone className="h-5 w-5" strokeWidth={2.5} />
-                    Get Started
+                    Call now
                   </a>
                 </motion.div>
 
