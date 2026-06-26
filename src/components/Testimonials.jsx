@@ -103,7 +103,7 @@ const Testimonials = () => {
       <svg
         key={i}
         className="w-3.5 h-3.5 sm:w-4 sm:h-4"
-        style={{ color: "#dc2626" }}
+        style={{ color: "#AC1E1E" }}
         fill="currentColor"
         viewBox="0 0 20 20"
       >
@@ -151,8 +151,8 @@ const Testimonials = () => {
                 key={testimonial.id}
                 className="relative flex-shrink-0 w-[300px] sm:w-[340px] md:w-[380px] lg:w-[420px] rounded-xl sm:rounded-2xl p-[2px] transition-all duration-300 hover:shadow-xl group"
               >
-                {/* Premium Gradient Border */}
-                <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-red-600 via-red-500 to-white/30 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Premium Gradient Border - Using #AC1E1E */}
+                <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#AC1E1E] via-[#AC1E1E] to-white/30 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 {/* Card Content */}
                 <div className="relative h-full bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6">
@@ -160,7 +160,7 @@ const Testimonials = () => {
                   <div className="mb-2 sm:mb-3">
                     <svg
                       className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"
-                      style={{ color: "#dc2626", opacity: 0.8 }}
+                      style={{ color: "#AC1E1E", opacity: 0.8 }}
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -180,7 +180,7 @@ const Testimonials = () => {
 
                   {/* Author Info */}
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-red-400 to-red-600 text-white font-sans font-semibold text-xs sm:text-sm md:text-[15px]">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-[#AC1E1E] to-[#8B1A1A] text-white font-sans font-semibold text-xs sm:text-sm md:text-[15px]">
                       {testimonial.avatar}
                     </div>
                     <div className="min-w-0">
@@ -202,8 +202,8 @@ const Testimonials = () => {
                 key={`duplicate-${testimonial.id}`}
                 className="relative flex-shrink-0 w-[300px] sm:w-[340px] md:w-[380px] lg:w-[420px] rounded-xl sm:rounded-2xl p-[2px] transition-all duration-300 hover:shadow-xl group"
               >
-                {/* Premium Gradient Border */}
-                <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-red-600 via-red-500 to-white/30 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Premium Gradient Border - Using #AC1E1E */}
+                <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#AC1E1E] via-[#AC1E1E] to-white/30 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 {/* Card Content */}
                 <div className="relative h-full bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6">
@@ -211,7 +211,7 @@ const Testimonials = () => {
                   <div className="mb-2 sm:mb-3">
                     <svg
                       className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"
-                      style={{ color: "#A71D1D", opacity: 0.8 }}
+                      style={{ color: "#AC1E1E", opacity: 0.8 }}
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -231,7 +231,7 @@ const Testimonials = () => {
 
                   {/* Author Info */}
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-red-400 to-red-600 text-white font-sans font-semibold text-xs sm:text-sm md:text-[15px]">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-[#AC1E1E] to-[#8B1A1A] text-white font-sans font-semibold text-xs sm:text-sm md:text-[15px]">
                       {testimonial.avatar}
                     </div>
                     <div className="min-w-0">
