@@ -1,21 +1,18 @@
-import React from "react";
-import Hero from "./components/Hero";
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Solution from "./components/Solution"; 
-import Feature from "./components/Feature";
-import HowitsWork from "./components/HowitsWork";
-import Testimonials from "./components/Testimonials";
+
+const Home = lazy(() => import("./pages/Home"));
 
 export default function App() {
   return (
-    <main className="min-h-screen w-full bg-background text-text antialiased">
+    <BrowserRouter>
       <Navbar />
-      <Hero />
-      <Solution />
-      <Feature />
-      <HowitsWork />
-      <Testimonials /> 
-      {/* <Footer /> */}
-    </main>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 }
