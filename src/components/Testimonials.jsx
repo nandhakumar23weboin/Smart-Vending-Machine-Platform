@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { TestimonialsColumn } from "./ui/testimonials-columns-1";
+import { useMemo } from "react";
 
 const testimonials = [
   {
@@ -46,19 +47,25 @@ const testimonials = [
   },
 ];
 
-const firstColumn = testimonials.slice(0, 3);
-const secondColumn = testimonials.slice(3, 5);
-const thirdColumn = testimonials.slice(5, 7);
-
 const Testimonials = () => {
+  const columns = useMemo(() => ({
+    firstColumn: testimonials.slice(0, 3),
+    secondColumn: testimonials.slice(3, 5),
+    thirdColumn: testimonials.slice(5, 7),
+  }), []);
+
+  const headerAnimation = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] },
+    viewport: { once: true },
+  };
+
   return (
-    <section className="bg-section my-12 sm:my-16 md:my-20 relative py-12 sm:py-16">
+    <section className="bg-white my-12 sm:my-16 md:my-20 relative py-12 sm:py-16">
       <div className="container z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
+          {...headerAnimation}
           className="flex flex-col items-center justify-center max-w-[540px] mx-auto"
         >
           <div className="flex justify-center">
@@ -77,14 +84,14 @@ const Testimonials = () => {
         </motion.div>
 
         <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[740px] overflow-hidden">
-          <TestimonialsColumn testimonials={firstColumn} duration={15} />
+          <TestimonialsColumn testimonials={columns.firstColumn} duration={15} />
           <TestimonialsColumn
-            testimonials={secondColumn}
+            testimonials={columns.secondColumn}
             className="hidden md:block"
             duration={19}
           />
           <TestimonialsColumn
-            testimonials={thirdColumn}
+            testimonials={columns.thirdColumn}
             className="hidden lg:block"
             duration={17}
           />
