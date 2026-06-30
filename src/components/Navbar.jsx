@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 
 const navLinks = [
-  { name: "Home", href: "#" },
-  { name: "About", href: "#" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
   {
     name: "Solutions",
     href: "#",

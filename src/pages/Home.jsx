@@ -5,6 +5,7 @@ const Solution = lazy(() => import("../components/Solution"));
 const Feature = lazy(() => import("../components/Feature"));
 const Testimonials = lazy(() => import("../components/Testimonials"));
 const Faq = lazy(() => import("../components/Faq"));
+const Form = lazy(() => import("../components/Form"));
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
           <Feature />
           <Testimonials />
           <Faq />
+          <Form />
         </Suspense>
       </section>
     </main>
