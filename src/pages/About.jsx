@@ -146,20 +146,30 @@ const industries = [
 /*  REUSABLE COMPONENTS                                                */
 /* ================================================================== */
 
-function Eyebrow({ children }) {
+function Eyebrow({ children, variant = "light" }) {
+  const styles =
+    variant === "dark"
+      ? "border-white/25 bg-white/10 text-white"
+      : "border-[#991B1B]/20 bg-[#991B1B]/10 text-[#991B1B]";
+
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-[#991B1B]/20 bg-[#991B1B]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-[#991B1B]">
+    <span
+      className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] ${styles}`}
+    >
       {children}
     </span>
   );
 }
 
-function SectionHeading({ eyebrow, title, description, center = true, highlightWords = [] }) {
+function SectionHeading({ eyebrow, title, description, center = true, highlightWords = [], theme = "light" }) {
+  const isDark = theme === "dark";
+  const highlightColor = isDark ? "#FCA5A5" : "#991B1B";
+
   const formatTitle = (text) => {
     let formatted = text;
     highlightWords.forEach(word => {
       const regex = new RegExp(`(${word})`, 'g');
-      formatted = formatted.replace(regex, `<span style="color: #991B1B;">$1</span>`);
+      formatted = formatted.replace(regex, `<span style="color: ${highlightColor};">$1</span>`);
     });
     return formatted;
   };
@@ -172,13 +182,13 @@ function SectionHeading({ eyebrow, title, description, center = true, highlightW
       viewport={VIEWPORT}
       className={`flex flex-col gap-4 ${center ? "items-center text-center" : "items-start text-left"} max-w-2xl ${center ? "mx-auto" : ""}`}
     >
-      <Eyebrow>{eyebrow}</Eyebrow>
-      <h2 
-        className="text-3xl sm:text-4xl font-bold tracking-tight text-[#111827]"
+      <Eyebrow variant={isDark ? "dark" : "light"}>{eyebrow}</Eyebrow>
+      <h2
+        className={`text-3xl sm:text-4xl font-bold tracking-tight ${isDark ? "text-white" : "text-[#111827]"}`}
         dangerouslySetInnerHTML={{ __html: formatTitle(title) }}
       />
       {description && (
-        <p className="text-base sm:text-lg leading-relaxed text-[#6B7280]">
+        <p className={`text-base sm:text-lg leading-relaxed ${isDark ? "text-white/75" : "text-[#6B7280]"}`}>
           {description}
         </p>
       )}
@@ -445,15 +455,42 @@ export default function About() {
       </section>
 
       {/* ============================================================ */}
-      {/* 3. WHY CHOOSE US - SAME DESIGN AS INDUSTRIES CARDS            */}
+      {/* 3. WHY CHOOSE US - RED SECTION BACKGROUND                     */}
       {/* ============================================================ */}
-      <section className="px-6 py-16 sm:py-20 bg-white" aria-label="Why choose our vending solutions">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative overflow-hidden px-6 py-16 sm:py-20 bg-[#831D1D]" aria-label="Why choose our vending solutions">
+        {/* top S-curve — blends out of the section above */}
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-14 w-full sm:h-20 lg:h-24"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,40 C240,100 480,0 720,40 C960,80 1200,0 1440,40 L1440,0 L0,0 Z"
+            fill="#F9FAFB"
+          />
+        </svg>
+
+        {/* bottom S-curve — blends into the section below */}
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-14 w-full sm:h-20 lg:h-24"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,80 C240,20 480,120 720,80 C960,40 1200,120 1440,80 L1440,120 L0,120 Z"
+            fill="#F9FAFB"
+          />
+        </svg>
+
+        <div className="relative z-10 mx-auto max-w-6xl">
           <SectionHeading
             eyebrow="Why Choose Us"
             title="Built for Businesses That Expect More"
             highlightWords={["Businesses", "That Expect More"]}
             description="Every part of our service is designed around dependability — not just on day one, but every day after."
+            theme="dark"
           />
 
           <motion.div
@@ -530,15 +567,42 @@ export default function About() {
       </section>
 
       {/* ============================================================ */}
-      {/* 5. INDUSTRIES WE SERVE                                        */}
+      {/* 5. INDUSTRIES WE SERVE - RED SECTION BACKGROUND               */}
       {/* ============================================================ */}
-      <section className="px-6 py-16 sm:py-20 bg-white" aria-label="Industries we serve">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative overflow-hidden px-6 py-16 sm:py-20 bg-[#831D1D]" aria-label="Industries we serve">
+        {/* top S-curve — blends out of the section above */}
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-14 w-full sm:h-20 lg:h-24"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,40 C240,100 480,0 720,40 C960,80 1200,0 1440,40 L1440,0 L0,0 Z"
+            fill="#FFFFFF"
+          />
+        </svg>
+
+        {/* bottom S-curve — blends into the form section below */}
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-14 w-full sm:h-20 lg:h-24"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,80 C240,20 480,120 720,80 C960,40 1200,120 1440,80 L1440,120 L0,120 Z"
+            fill="#FFFFFF"
+          />
+        </svg>
+
+        <div className="relative z-10 mx-auto max-w-6xl">
           <SectionHeading
             eyebrow="Industries We Serve"
-            title="One Solution, <span style='color: #991B1B;'>Many Environments</span>"
+            title="One Solution, Many Environments"
             highlightWords={["Many Environments"]}
             description="Wherever people gather, our machines are built to fit in and keep running."
+            theme="dark"
           />
 
           <motion.div
