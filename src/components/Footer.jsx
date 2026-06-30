@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { 
   HiPhone, 
@@ -162,14 +163,15 @@ const Footer = () => {
               <ul className="space-y-3">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
-                    <motion.a
-                      href={link.href}
-                      whileHover={{ x: 4 }}
-                      className="inline-flex items-center gap-2 text-red-100/70 hover:text-white transition-colors duration-200 text-sm group"
-                    >
-                      <HiChevronRight className="w-3.5 h-3.5 text-red-300/50 group-hover:text-red-300 transition-all duration-200 flex-shrink-0" />
-                      <span>{link.name}</span>
-                    </motion.a>
+                    <motion.div whileHover={{ x: 4 }}>
+                      <Link
+                        to={link.href}
+                        className="inline-flex items-center gap-2 text-red-100/70 hover:text-white transition-colors duration-200 text-sm group"
+                      >
+                        <HiChevronRight className="w-3.5 h-3.5 text-red-300/50 group-hover:text-red-300 transition-all duration-200 flex-shrink-0" />
+                        <span>{link.name}</span>
+                      </Link>
+                    </motion.div>
                   </li>
                 ))}
               </ul>

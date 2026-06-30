@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
@@ -116,14 +117,14 @@ export default function Navbar() {
                       <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-primary transition-all duration-300 group-hover:w-3/4" />
                     </button>
                   ) : (
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="group relative rounded-full px-3 py-2 text-sm font-black text-gray-900 transition-all duration-300"
                     >
                       {link.name}
                       {/* Red underline animation */}
                       <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-primary transition-all duration-300 group-hover:w-3/4" />
-                    </a>
+                    </Link>
                   )}
 
                   {/* Dropdown - Clean white background without glassmorphism */}
@@ -304,13 +305,13 @@ export default function Navbar() {
                           </AnimatePresence>
                         </div>
                       ) : (
-                        <a
-                          href={link.href}
+                        <Link
+                          to={link.href}
                           onClick={closeMobileMenu}
                           className="block rounded-2xl px-4 py-3.5 text-base font-black text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
                         >
                           {link.name}
-                        </a>
+                        </Link>
                       )}
                     </motion.div>
                   ))}
