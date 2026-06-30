@@ -158,7 +158,8 @@ function SectionHeading({ eyebrow, title, description, center = true, highlightW
   const formatTitle = (text) => {
     let formatted = text;
     highlightWords.forEach(word => {
-      formatted = formatted.replace(word, `<span style="color: #991B1B;">${word}</span>`);
+      const regex = new RegExp(`(${word})`, 'g');
+      formatted = formatted.replace(regex, `<span style="color: #991B1B;">$1</span>`);
     });
     return formatted;
   };
@@ -185,33 +186,57 @@ function SectionHeading({ eyebrow, title, description, center = true, highlightW
   );
 }
 
-function FeatureCard({ icon: Icon, title, description, index }) {
-  const patterns = [
-    "border-l-4",
-    "border-t-4",
-    "border-r-4",
-    "border-b-4",
-    "border-l-4",
-    "border-t-4",
-  ];
-
+function WhyChooseUsCard({ icon: Icon, title, description }) {
   return (
-    <motion.article
+    <motion.div
       variants={fadeUp}
       whileHover={{ y: -8, scale: 1.02 }}
       transition={{ duration: 0.3, ease: EASE }}
-      className={`group relative bg-white rounded-2xl p-8 ${patterns[index % patterns.length]} border-[#991B1B] shadow-[0_8px_30px_-8px_rgba(153,27,27,0.15)] hover:shadow-[0_20px_40px_-12px_rgba(153,27,27,0.25)] transition-all duration-300 overflow-hidden`}
+      className="group relative"
     >
-      <div className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-bl from-[#991B1B]/10 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      
-      <div className="relative">
-        <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#991B1B] text-white shadow-lg group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
-          <Icon className="h-7 w-7" strokeWidth={1.8} aria-hidden="true" />
-        </div>
-        <h3 className="mb-3 text-xl font-bold text-[#111827] group-hover:text-[#991B1B] transition-colors">{title}</h3>
-        <p className="text-sm leading-relaxed text-[#6B7280]">{description}</p>
+      {/* Decorative quote marks in background */}
+      <div className="absolute -top-6 -right-4 text-9xl text-[#991B1B]/5 select-none pointer-events-none" aria-hidden="true">
+        <Quote className="w-24 h-24" />
       </div>
-    </motion.article>
+      
+      {/* Main card */}
+      <div className="relative bg-white rounded-3xl border-2 border-[#991B1B]/20 p-8 shadow-lg hover:shadow-2xl hover:border-[#991B1B]/40 transition-all duration-300">
+        {/* Top accent bar */}
+        <div className="absolute top-0 left-4 right-4 h-1.5 bg-[#991B1B] rounded-full transform -translate-y-1/2" />
+        
+        {/* Star decoration */}
+        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <Star className="w-5 h-5 text-[#991B1B]/30 fill-current" />
+        </div>
+        
+        {/* Content */}
+        <div className="flex items-start gap-5">
+          {/* Icon */}
+          <div className="flex-shrink-0">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#991B1B] text-white shadow-lg group-hover:rotate-12 transition-transform duration-300">
+              <Icon className="h-7 w-7" strokeWidth={1.8} aria-hidden="true" />
+            </div>
+          </div>
+          
+          {/* Text content */}
+          <div className="flex-1 pt-1">
+            <h3 className="text-xl font-bold text-[#111827] mb-3 group-hover:text-[#991B1B] transition-colors">
+              {title}
+            </h3>
+            <div className="relative">
+              <span className="absolute -top-1 -left-1 text-3xl text-[#991B1B]/20 select-none">"</span>
+              <p className="text-sm leading-relaxed text-[#6B7280] pl-3">
+                {description}
+              </p>
+              <span className="absolute -bottom-3 right-0 text-3xl text-[#991B1B]/20 select-none">"</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Bottom gradient line */}
+        <div className="absolute bottom-0 left-8 right-8 h-0.5 bg-gradient-to-r from-transparent via-[#991B1B]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      </div>
+    </motion.div>
   );
 }
 
@@ -335,53 +360,57 @@ export default function About() {
       </section>
 
       {/* ============================================================ */}
-      {/* 2. WHO WE ARE WITH IMAGE                                      */}
+      {/* 2. WHO WE ARE WITH IMAGE - FIXED HEIGHT & CENTERED           */}
       {/* ============================================================ */}
-      <section className="px-6 py-24 sm:py-28 bg-gradient-to-b from-white to-gray-50" aria-labelledby="who-we-are-heading">
+      <section className="px-6 py-12 sm:py-16 bg-gradient-to-b from-white to-gray-50" aria-labelledby="who-we-are-heading">
         <div className="mx-auto max-w-6xl">
-          <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            {/* Left Column - Image with fixed height */}
             <motion.div
               variants={fadeLeft}
               initial="hidden"
               whileInView="visible"
               viewport={VIEWPORT}
-              className="relative"
+              className="relative flex justify-center lg:justify-end"
             >
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-2xl group">
+              <div className="relative w-full max-w-sm lg:max-w-md h-[350px] sm:h-[400px] lg:h-[450px] overflow-hidden rounded-3xl shadow-2xl group">
                 <img
                   src="/src/assets/whoweare.png"
                   alt="Smart vending machine in modern business space"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-fit object-center group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
 
+              {/* Trust badge - repositioned */}
               <motion.div
                 variants={scaleIn}
                 initial="hidden"
                 whileInView="visible"
                 viewport={VIEWPORT}
-                className="absolute -bottom-6 -right-6 hidden max-w-[250px] rounded-2xl border-2 border-[#991B1B]/20 bg-white p-5 shadow-xl sm:block backdrop-blur-sm"
+                className="absolute -bottom-4 -right-2 sm:right-0 max-w-[200px] sm:max-w-[220px] rounded-2xl border-2 border-[#991B1B]/20 bg-white/95 backdrop-blur-sm p-3 sm:p-4 shadow-xl"
               >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#991B1B] text-white">
-                    <ShieldCheck className="h-6 w-6" strokeWidth={1.8} aria-hidden="true" />
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-[#991B1B] text-white">
+                    <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={1.8} aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold leading-snug text-[#111827]">
+                    <p className="text-xs sm:text-sm font-bold leading-snug text-[#111827]">
                       Trusted by businesses
                     </p>
-                    <p className="text-xs text-[#6B7280] mt-1">Across multiple industries</p>
+                    <p className="text-[10px] sm:text-xs text-[#6B7280] mt-0.5">Across multiple industries</p>
                   </div>
                 </div>
               </motion.div>
             </motion.div>
 
+            {/* Right Column - Properly centered content */}
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={VIEWPORT}
+              className="flex flex-col justify-center max-w-lg mx-auto lg:mx-0 w-full"
             >
               <motion.div variants={fadeUp}>
                 <Eyebrow>Our Story</Eyebrow>
@@ -389,22 +418,22 @@ export default function About() {
               <motion.h2
                 id="who-we-are-heading"
                 variants={fadeUp}
-                className="mt-5 text-3xl font-bold tracking-tight text-[#111827] sm:text-4xl"
+                className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#111827]"
               >
                 Who We Are
               </motion.h2>
 
-              <motion.div variants={fadeUp} className="mt-4 text-base leading-relaxed text-[#6B7280]">
+              <motion.p variants={fadeUp} className="mt-2 text-sm sm:text-base leading-relaxed text-[#6B7280]">
                 We help businesses bring modern, self-service convenience into their everyday
                 spaces — without the operational headache that usually comes with it.
-              </motion.div>
+              </motion.p>
 
-              <div className="mt-8 space-y-6">
+              <div className="mt-5 space-y-3">
                 {whoWeArePoints.map((point) => (
-                  <motion.div key={point.label} variants={fadeUp} className="flex gap-4 group cursor-default">
-                    <div className="mt-1.5 h-3 w-3 shrink-0 rounded-full bg-[#991B1B] group-hover:scale-125 transition-transform" aria-hidden="true" />
-                    <p className="text-sm leading-relaxed text-[#374151] sm:text-base">
-                      <span className="font-bold text-[#111827] group-hover:text-[#991B1B] transition-colors">{point.label}.</span>{" "}
+                  <motion.div key={point.label} variants={fadeUp} className="flex gap-3 group cursor-default">
+                    <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#991B1B] group-hover:scale-125 transition-transform" aria-hidden="true" />
+                    <p className="text-sm leading-relaxed text-[#374151]">
+                      <span className="font-semibold text-[#111827] group-hover:text-[#991B1B] transition-colors">{point.label}.</span>{" "}
                       <span className="text-[#6B7280]">{point.text}</span>
                     </p>
                   </motion.div>
@@ -416,9 +445,9 @@ export default function About() {
       </section>
 
       {/* ============================================================ */}
-      {/* 3. WHY CHOOSE US                                              */}
+      {/* 3. WHY CHOOSE US - SAME DESIGN AS INDUSTRIES CARDS            */}
       {/* ============================================================ */}
-      <section className="px-6 py-24 sm:py-28 bg-white" aria-label="Why choose our vending solutions">
+      <section className="px-6 py-16 sm:py-20 bg-white" aria-label="Why choose our vending solutions">
         <div className="mx-auto max-w-6xl">
           <SectionHeading
             eyebrow="Why Choose Us"
@@ -432,10 +461,10 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT}
-            className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {whyChooseUs.map((item, index) => (
-              <FeatureCard key={item.title} {...item} index={index} />
+            {whyChooseUs.map((item) => (
+              <WhyChooseUsCard key={item.title} {...item} />
             ))}
           </motion.div>
         </div>
@@ -444,7 +473,7 @@ export default function About() {
       {/* ============================================================ */}
       {/* 4. OUR PROCESS                                                */}
       {/* ============================================================ */}
-      <section className="bg-gradient-to-b from-gray-50 to-white px-6 py-24 sm:py-28" aria-label="Our process">
+      <section className="bg-gradient-to-b from-gray-50 to-white px-6 py-16 sm:py-20" aria-label="Our process">
         <div className="mx-auto max-w-6xl">
           <SectionHeading
             eyebrow="How It Works"
@@ -458,38 +487,38 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT}
-            className="relative mt-16"
+            className="relative mt-14"
           >
             <div
               className="absolute top-8 left-0 right-0 hidden h-0.5 bg-gradient-to-r from-transparent via-[#991B1B]/30 to-transparent lg:block"
               aria-hidden="true"
             />
 
-            <ol className="grid gap-10 lg:grid-cols-6 lg:gap-6">
+            <ol className="grid gap-8 lg:grid-cols-6 lg:gap-4">
               {processSteps.map(({ icon: Icon, step, title, description }, index) => (
                 <motion.li
                   key={step}
                   variants={fadeUp}
                   whileHover={{ y: -5 }}
-                  className="relative flex gap-5 lg:flex-col lg:items-center lg:gap-0 lg:text-center group cursor-default"
+                  className="relative flex gap-4 lg:flex-col lg:items-center lg:gap-0 lg:text-center group cursor-default"
                 >
                   {index !== processSteps.length - 1 && (
                     <span
-                      className="absolute top-16 left-7 h-[calc(100%+1rem)] w-0.5 bg-gradient-to-b from-[#991B1B]/40 to-[#991B1B]/10 lg:hidden"
+                      className="absolute top-14 left-7 h-[calc(100%+0.5rem)] w-0.5 bg-gradient-to-b from-[#991B1B]/40 to-[#991B1B]/10 lg:hidden"
                       aria-hidden="true"
                     />
                   )}
 
-                  <div className="relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#991B1B] text-white shadow-[0_4px_18px_-4px_rgba(153,27,27,0.5)] ring-2 ring-[#991B1B]/20 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                    <Icon className="h-7 w-7" strokeWidth={1.8} aria-hidden="true" />
+                  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#991B1B] text-white shadow-[0_4px_18px_-4px_rgba(153,27,27,0.5)] ring-2 ring-[#991B1B]/20 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Icon className="h-6 w-6" strokeWidth={1.8} aria-hidden="true" />
                   </div>
 
-                  <div className="lg:mt-4">
+                  <div className="lg:mt-3">
                     <span className="text-xs font-bold tracking-widest text-[#991B1B] bg-[#991B1B]/10 px-2 py-1 rounded-full">
                       {step}
                     </span>
-                    <h3 className="mt-2 text-base font-bold text-[#111827] group-hover:text-[#991B1B] transition-colors">{title}</h3>
-                    <p className="mt-1.5 max-w-[12rem] text-sm leading-relaxed text-[#6B7280] lg:mx-auto">
+                    <h3 className="mt-2 text-sm font-bold text-[#111827] group-hover:text-[#991B1B] transition-colors">{title}</h3>
+                    <p className="mt-1 max-w-[10rem] text-xs leading-relaxed text-[#6B7280] lg:mx-auto">
                       {description}
                     </p>
                   </div>
@@ -503,11 +532,12 @@ export default function About() {
       {/* ============================================================ */}
       {/* 5. INDUSTRIES WE SERVE                                        */}
       {/* ============================================================ */}
-      <section className="px-6 py-24 sm:py-28 bg-white" aria-label="Industries we serve">
+      <section className="px-6 py-16 sm:py-20 bg-white" aria-label="Industries we serve">
         <div className="mx-auto max-w-6xl">
           <SectionHeading
             eyebrow="Industries We Serve"
-            title="One Solution, Many Environments"
+            title="One Solution, <span style='color: #991B1B;'>Many Environments</span>"
+            highlightWords={["Many Environments"]}
             description="Wherever people gather, our machines are built to fit in and keep running."
           />
 
@@ -516,7 +546,7 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT}
-            className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {industries.map((item) => (
               <IndustryCard key={item.title} {...item} />
@@ -530,7 +560,7 @@ export default function About() {
       {/* ============================================================ */}
       <Suspense
         fallback={
-          <div className="px-6 py-24" aria-hidden="true">
+          <div className="px-6 py-16" aria-hidden="true">
             <div className="mx-auto h-64 max-w-6xl animate-pulse rounded-3xl bg-gray-100" />
           </div>
         }

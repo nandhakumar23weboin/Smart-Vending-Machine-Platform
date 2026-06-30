@@ -487,9 +487,9 @@ const Form = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         className="group flex w-auto items-center gap-2 rounded-lg px-5 py-2.5 text-[14px] font-bold text-gray-900 transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-70 sm:px-6 sm:py-3"
-                        style={{ backgroundColor: '#FF9673' }}
+                        style={{ backgroundColor: '#FFFFFF' }}
                         onMouseEnter={(e) => e.target.style.backgroundColor = '#FF8559'}
-                        onMouseLeave={(e) => e.target.style.backgroundColor = '#FF9673'}
+                        onMouseLeave={(e) => e.target.style.backgroundColor = '#FFFFFF'}
                       >
                         {isSubmitting ? (
                           <>
