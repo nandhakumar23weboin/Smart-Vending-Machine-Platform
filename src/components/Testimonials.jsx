@@ -88,7 +88,7 @@ const TestimonialRow = memo(({ items, direction = "left", duration = 30 }) => {
       : { x: ["-50%", "0%"] };
 
   return (
-    <div className="relative [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] ">
+    <div className="relative overflow-hidden"> 
       <motion.div
         className="flex gap-6"
         animate={animation}
