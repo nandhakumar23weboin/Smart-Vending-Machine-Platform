@@ -146,10 +146,10 @@ const Solution = () => {
             Next-Gen Vending &amp; Coffee Solutions
           </span>
           <h1 
-            className="max-w-2xl text-2xl md:text-4xl lg:text-[36px] font-semibold text-[#111827] leading-tight md:leading-[45px] animate-fade-in-up px-4" 
+            className="max-w-2xl text-[28px] sm:text-[32px] md:text-[36px] lg:text-[41.6px] font-semibold text-[#111827] leading-[36px] sm:leading-[40px] md:leading-[45px] lg:leading-[52px] animate-fade-in-up px-4" 
             style={{
               animationDelay: "0.1s", 
-              fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', sans-serif", 
+              fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', 'Plus Jakarta Sans', Inter, ui-sans-serif, system-ui, sans-serif", 
               fontWeight: 600,
             }}
           >

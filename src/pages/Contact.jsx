@@ -75,7 +75,7 @@ const reasons = [
 /* ------------------------------------------------------------------ */
 /*  Reason card                                                        */
 /*  Equal-height "notched ticket" panel — a clipped top-right corner   */
-/*  reveals the red section behind it, with a cursor-tracked spotlight */
+/*  reveals the red section behind it, with a cursor-tracked spotlight  */
 /*  and a reveal underline on hover. Colors and icon untouched.        */
 /* ------------------------------------------------------------------ */
 
@@ -124,7 +124,7 @@ function ReasonCard({ icon: Icon, title, description, index }) {
           <Icon className="h-6 w-6 text-white" strokeWidth={2} />
         </div>
 
-        <h3 className="relative text-lg font-semibold text-[#111827]">
+        <h3 className="relative text-lg font-semibold text-[#111827] font-['Tiktoksans_Variablefont_Opsz_Slnt_Wdth_Wght','Plus_Jakarta_Sans',Inter,ui-sans-serif,system-ui,sans-serif] font-[600]">
           {title}
         </h3>
         <p className="relative mt-2.5 text-sm leading-relaxed text-[#6B7280]">
@@ -197,7 +197,7 @@ export default function Contact() {
           {/* Heading */}
           <motion.h1
             variants={fadeUp}
-            className="text-balance text-4xl font-bold leading-[1.1] tracking-tight text-[#111827] sm:text-5xl lg:text-6xl"
+            className="text-balance text-4xl font-bold leading-[1.1] tracking-tight text-[#111827] sm:text-5xl lg:text-6xl font-['Tiktoksans_Variablefont_Opsz_Slnt_Wdth_Wght','Plus_Jakarta_Sans',Inter,ui-sans-serif,system-ui,sans-serif] font-[600]"
           >
             Let&apos;s Build Your{" "}
             <span className="bg-gradient-to-r from-[#991B1B] to-[#DC2626] bg-clip-text text-transparent">
@@ -284,7 +284,7 @@ export default function Contact() {
             variants={fadeUp}
             className="mx-auto mb-14 max-w-2xl text-center sm:mb-20"
           >
-            <h2 className="text-balance text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="text-balance text-3xl font-bold tracking-tight text-white sm:text-4xl font-['Tiktoksans_Variablefont_Opsz_Slnt_Wdth_Wght','Plus_Jakarta_Sans',Inter,ui-sans-serif,system-ui,sans-serif] font-[600]">
               Why Contact Us
             </h2>
             <p className="mt-4 text-base leading-relaxed text-white/75 sm:text-lg">

@@ -6,6 +6,8 @@ import Footer from "./components/Footer";
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
+const SmartVending = lazy(() => import("./pages/SmartVending"));
+const CoffeeMachine = lazy(() => import("./pages/CoffeeMachine"));
 
 export default function App() {
   return (
@@ -16,6 +18,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/SmartVending" element={<SmartVending />} />
+          <Route path="/CoffeeMachine" element={<CoffeeMachine />} />
         </Routes>
       </Suspense>
       <Footer />

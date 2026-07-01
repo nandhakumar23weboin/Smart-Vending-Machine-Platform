@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+
 import {
   Menu,
   X,
@@ -18,14 +19,11 @@ const navLinks = [
     name: "Solutions",
     href: "#",
     dropdown: [
-      { name: "Smart Vending", href: "#", icon: Zap },
-      { name: "Coffee Machines", href: "#", icon: Coffee },
-      
+      { name: "Smart Vending", href: "/SmartVending", icon: Zap },
+      { name: "Coffee Machines", href: "/CoffeeMachine", icon: Coffee },
     ],
   },
   { name: "Contact", href: "/contact" },
-  
-  
 ];
 
 export default function Navbar() {
