@@ -27,6 +27,7 @@ import {
   Star,
   Users,
 } from "lucide-react";
+import whoWeAreImg from "../assets/whoweare.png";
 
 // Lazy load Form component
 const Form = lazy(() => import("../components/Form"));
@@ -385,7 +386,7 @@ export default function About() {
             >
               <div className="relative w-full max-w-sm lg:max-w-md h-[350px] sm:h-[400px] lg:h-[450px] overflow-hidden rounded-3xl shadow-2xl group">
                 <img
-                  src="/src/assets/whoweare.png"
+                  src={whoWeAreImg}
                   alt="Smart vending machine in modern business space"
                   className="w-full h-full object-fit object-center group-hover:scale-105 transition-transform duration-700"
                 />

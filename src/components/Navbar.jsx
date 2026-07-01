@@ -20,7 +20,7 @@ const navLinks = [
     dropdown: [
       { name: "Smart Vending", href: "#", icon: Zap },
       { name: "Coffee Machines", href: "#", icon: Coffee },
-      { name: "Micro Markets", href: "#", icon: Sparkles },
+      
     ],
   },
   { name: "Contact", href: "/contact" },
