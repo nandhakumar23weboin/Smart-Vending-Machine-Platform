@@ -140,9 +140,9 @@ export default function Navbar() {
                           className="absolute top-full left-1/2 mt-2 w-48 -translate-x-1/2 rounded-2xl bg-white border border-gray-200 p-2 shadow-lg shadow-gray-200/50"
                         >
                           {link.dropdown.map((item) => (
-                            <a
+                            <Link
                               key={item.name}
-                              href={item.href}
+                              to={item.href}
                               className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-extrabold text-gray-900 transition-all duration-200 hover:bg-red-50 hover:text-primary"
                             >
                               <item.icon
@@ -150,7 +150,7 @@ export default function Navbar() {
                                 strokeWidth={2}
                               />
                               {item.name}
-                            </a>
+                            </Link>
                           ))}
                         </motion.div>
                       )}
@@ -284,9 +284,9 @@ export default function Navbar() {
                               >
                                 <div className="ml-4 border-l-2 border-primary/20 py-2 pl-4">
                                   {link.dropdown.map((item) => (
-                                    <a
+                                    <Link
                                       key={item.name}
-                                      href={item.href}
+                                      to={item.href}
                                       onClick={closeMobileMenu}
                                       className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-extrabold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
                                     >
@@ -295,7 +295,7 @@ export default function Navbar() {
                                         strokeWidth={2}
                                       />
                                       {item.name}
-                                    </a>
+                                    </Link>
                                   ))}
                                 </div>
                               </motion.div>
