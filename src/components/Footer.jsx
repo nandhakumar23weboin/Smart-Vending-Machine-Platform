@@ -37,9 +37,8 @@ const Footer = () => {
   ];
 
   const solutions = [
-    { name: 'Snack Vending Machine', href: '/solutions/snack-vending' },
-    { name: 'Beverage Vending Machine', href: '/solutions/beverage-vending' },
-
+    { name: 'Snack Vending Machine', href: '/SmartVending' },
+    { name: 'Beverage Vending Machine', href: '/CoffeeMachine' },
   ];
 
   const contactInfo = [
@@ -165,6 +164,7 @@ const Footer = () => {
                     <motion.div whileHover={{ x: 4 }}>
                       <Link
                         to={link.href}
+                        onClick={() => window.scrollTo(0, 0)}
                         className="inline-flex items-center gap-2 text-red-100/70 hover:text-white transition-colors duration-200 text-sm group"
                       >
                         <HiChevronRight className="w-3.5 h-3.5 text-red-300/50 group-hover:text-red-300 transition-all duration-200 flex-shrink-0" />
@@ -190,14 +190,16 @@ const Footer = () => {
               <ul className="space-y-3">
                 {solutions.map((solution, index) => (
                   <li key={index}>
-                    <motion.a
-                      href={solution.href}
-                      whileHover={{ x: 4 }}
-                      className="inline-flex items-center gap-2 text-red-100/70 hover:text-white transition-colors duration-200 text-sm group"
-                    >
-                      <HiChevronRight className="w-3.5 h-3.5 text-red-300/50 group-hover:text-red-300 transition-all duration-200 flex-shrink-0" />
-                      <span>{solution.name}</span>
-                    </motion.a>
+                    <motion.div whileHover={{ x: 4 }}>
+                      <Link
+                        to={solution.href}
+                        onClick={() => window.scrollTo(0, 0)}
+                        className="inline-flex items-center gap-2 text-red-100/70 hover:text-white transition-colors duration-200 text-sm group"
+                      >
+                        <HiChevronRight className="w-3.5 h-3.5 text-red-300/50 group-hover:text-red-300 transition-all duration-200 flex-shrink-0" />
+                        <span>{solution.name}</span>
+                      </Link>
+                    </motion.div>
                   </li>
                 ))}
               </ul>
