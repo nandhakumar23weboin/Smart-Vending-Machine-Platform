@@ -40,7 +40,7 @@ const Footer = () => {
   const solutions = [
     { name: 'Snack Vending Machine', href: '/solutions/snack-vending' },
     { name: 'Beverage Vending Machine', href: '/solutions/beverage-vending' },
-    { name: 'Combo Vending Machine', href: '/solutions/combo-vending' },
+    
   ];
 
   const contactInfo = [
