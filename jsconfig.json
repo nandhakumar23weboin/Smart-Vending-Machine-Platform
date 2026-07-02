@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "jsx": "react-jsx",
+    "strict": false,
+    "noEmit": true
   },
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

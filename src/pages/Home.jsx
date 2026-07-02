@@ -17,7 +17,9 @@ export default function Home() {
           <Feature />
           <Testimonials />
           <Faq />
-          <Form />
+          <div id="form-section">
+            <Form />
+          </div>
         </Suspense>
       </section>
     </main>

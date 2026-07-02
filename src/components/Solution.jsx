@@ -1,5 +1,6 @@
 // src/components/featured.jsx
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Zap, Pointer, Layout, ArrowRight, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import eventImage from "../assets/event.jpeg";
 import yourBrandImage from "../assets/yourbrand.jpeg";
@@ -44,11 +45,19 @@ const Button = ({ children, variant = "default", size = "default", className = "
 };
 
 const Solution = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState(0);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+
+  const scrollToForm = () => {
+    const formSection = document.getElementById("form-section");
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   const tabs = [
     {
@@ -137,7 +146,7 @@ const Solution = () => {
   const currentTab = tabs[activeTab];
 
   return (
-    <section className="relative py-10 md:py-14 lg:py-16 bg-white">
+    <section className="relative py-10 md:py-14 lg:py-20 bg-white">
       <div className="container mx-auto px-4 relative z-10">
         {/* Header Section */}
         <div className="flex flex-col items-center gap-3 text-center mb-6 md:mb-8">
@@ -257,7 +266,7 @@ const Solution = () => {
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
-                    <Button variant="default" size="lg" className="group w-full sm:w-auto text-sm" style={{fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', sans-serif", fontWeight: 600}}>
+                  <Button variant="default" size="lg" className="group w-full sm:w-auto text-sm" onClick={scrollToForm} style={{fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', sans-serif", fontWeight: 600}}>
                       {currentTab.content.buttonText}
                       <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                     </Button>

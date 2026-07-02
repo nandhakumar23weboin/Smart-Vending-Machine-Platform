@@ -48,9 +48,9 @@ const testimonials = [
 
 // ── Memoized card: only re-renders if props change ──
 const TestimonialCard = memo(({ text, image, name, role }) => (
-  <div className="p-8 rounded-2xl bg-red-800 border border-white shadow-lg hover:shadow-xl transition-shadow duration-300 w-[340px] flex-shrink-0">
+  <div className="p-4 sm:p-8 rounded-2xl bg-red-800 border border-white shadow-lg hover:shadow-xl transition-shadow duration-300 w-[240px] sm:w-[320px] md:w-[340px] flex-shrink-0">
     <svg
-      className="w-8 h-8 text-white/30 mb-4"
+      className="w-5 h-5 sm:w-8 sm:h-8 text-white/30 mb-2 sm:mb-4"
       fill="currentColor"
       viewBox="0 0 24 24"
       aria-hidden="true"
@@ -58,20 +58,20 @@ const TestimonialCard = memo(({ text, image, name, role }) => (
       <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
     </svg>
 
-    <p className="text-white/90 text-sm leading-relaxed mb-6">{text}</p>
+    <p className="text-white/90 text-[0.7rem] sm:text-sm leading-relaxed mb-3 sm:mb-6 line-clamp-3 sm:line-clamp-none">{text}</p>
 
-    <div className="border-t border-white/20 pt-4 flex items-center gap-3">
+    <div className="border-t border-white/20 pt-2.5 sm:pt-4 flex items-center gap-2 sm:gap-3">
       <img
         width={44}
         height={44}
         src={image}
         alt={name}
-        className="h-11 w-11 rounded-full object-cover ring-2 ring-white/50"
+        className="h-7 w-7 sm:h-11 sm:w-11 rounded-full object-cover ring-2 ring-white/50"
         loading="lazy"
       />
       <div>
-        <h4 className="font-semibold text-white text-sm">{name}</h4>
-        <p className="text-white/70 text-xs mt-0.5">{role}</p>
+        <h4 className="font-semibold text-white text-[0.7rem] sm:text-sm">{name}</h4>
+        <p className="text-white/70 text-[0.6rem] sm:text-xs mt-0.5">{role}</p>
       </div>
     </div>
   </div>
@@ -154,7 +154,7 @@ const Testimonials = () => {
   const rowTwo = useMemo(() => testimonials.slice(3, 7), []);
 
   return (
-    <section className="bg-white my-12 sm:my-16 md:my-20 py-12 sm:py-16 overflow-hidden">
+    <section className="bg-white my-8 sm:my-0 py-8 sm:py-14 lg:py-20 overflow-hidden">
       <div className="container mx-auto">
         <SectionHeader />
       </div>

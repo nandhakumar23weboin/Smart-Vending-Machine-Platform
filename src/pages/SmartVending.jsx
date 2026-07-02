@@ -196,6 +196,9 @@ const MachineCard = memo(({ machine, index }) => {
 
           {/* Buy Now button - Reduced size */}
           <motion.button
+            onClick={() => {
+              document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
+            }}
             whileTap={{ scale: 0.93 }}
             className="flex items-center gap-1.5 bg-[#991b1b] hover:bg-[#7f1d1d] text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-md shadow-[#991b1b]/20 transition-colors duration-200"
             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
@@ -291,6 +294,7 @@ const SmartVending = () => {
 
         {/* ── Form Section ── */}
         <motion.div
+          id="contact-form"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

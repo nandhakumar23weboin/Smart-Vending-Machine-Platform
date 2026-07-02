@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import {
@@ -16,7 +16,7 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   {
-    name: "Solutions",
+    name: "Category",
     href: "#",
     dropdown: [
       { name: "Smart Vending", href: "/SmartVending", icon: Zap },
@@ -31,6 +31,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileDropdown, setMobileDropdown] = useState(null);
+  const navigate = useNavigate();
 
   const handleScroll = useCallback(() => {
     setIsScrolled(window.scrollY > 20);
@@ -53,6 +54,16 @@ export default function Navbar() {
     setMobileDropdown(null);
   }, []);
 
+  // Navigate and always scroll to top
+  const handleNavClick = useCallback(
+    (href) => {
+      closeMobileMenu();
+      navigate(href);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
+    [navigate, closeMobileMenu]
+  );
+
   return (
     <>
       <motion.nav
@@ -74,22 +85,22 @@ export default function Navbar() {
         >
           <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-3 lg:px-8">
             {/* Logo */}
-            <motion.a
-              href="#"
-              className="flex items-center gap-1.5 sm:gap-2.5 group"
+            <motion.button
+              onClick={() => handleNavClick("/")}
+              className="flex items-center gap-2 sm:gap-3 group"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-primary sm:h-10 sm:w-10 sm:rounded-xl">
+              <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-primary sm:h-12 sm:w-12 sm:rounded-xl">
                 <Sparkles
-                  className="h-5 w-5 text-white sm:h-5 sm:w-6"
+                  className="h-6 w-6 text-white sm:h-6 sm:w-7"
                   strokeWidth={2}
                 />
               </div>
-              <span className="text-lg font-black tracking-tight text-gray-900 sm:text-lg">
+              <span className="text-xl font-black tracking-tight text-gray-900 sm:text-2xl">
                 Smart<span className="text-primary">Vend</span>
               </span>
-            </motion.a>
+            </motion.button>
 
             {/* Desktop Navigation */}
             <div className="hidden items-center gap-1 lg:flex">
@@ -101,7 +112,7 @@ export default function Navbar() {
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   {link.dropdown ? (
-                    <button className="group relative flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-black text-gray-900 transition-all duration-300">
+                    <button className="group relative flex items-center gap-1.5 rounded-full px-4 py-2 text-[16px] font-black text-gray-900 transition-all duration-300">
                       {link.name}
                       <ChevronDown
                         className={`h-4 w-4 transition-transform duration-300 ${
@@ -115,17 +126,17 @@ export default function Navbar() {
                       <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-primary transition-all duration-300 group-hover:w-3/4" />
                     </button>
                   ) : (
-                    <Link
-                      to={link.href}
-                      className="group relative rounded-full px-3 py-2 text-sm font-black text-gray-900 transition-all duration-300"
+                    <button
+                      onClick={() => handleNavClick(link.href)}
+                      className="group relative rounded-full px-4 py-2 text-[16px] font-black text-gray-900 transition-all duration-300"
                     >
                       {link.name}
                       {/* Red underline animation */}
                       <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-primary transition-all duration-300 group-hover:w-3/4" />
-                    </Link>
+                    </button>
                   )}
 
-                  {/* Dropdown - Clean white background without glassmorphism */}
+                  {/* Dropdown */}
                   {link.dropdown && (
                     <AnimatePresence>
                       {activeDropdown === link.name && (
@@ -137,20 +148,20 @@ export default function Navbar() {
                             duration: 0.2,
                             ease: [0.22, 1, 0.36, 1],
                           }}
-                          className="absolute top-full left-1/2 mt-2 w-48 -translate-x-1/2 rounded-2xl bg-white border border-gray-200 p-2 shadow-lg shadow-gray-200/50"
+                          className="absolute top-full left-1/2 mt-2 w-52 -translate-x-1/2 rounded-2xl bg-white border border-gray-200 p-2 shadow-lg shadow-gray-200/50"
                         >
                           {link.dropdown.map((item) => (
-                            <Link
+                            <button
                               key={item.name}
-                              to={item.href}
-                              className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-extrabold text-gray-900 transition-all duration-200 hover:bg-red-50 hover:text-primary"
+                              onClick={() => handleNavClick(item.href)}
+                              className="flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-[15px] font-black text-gray-900 transition-all duration-200 hover:bg-red-50 hover:text-primary"
                             >
                               <item.icon
                                 className="h-4 w-4 text-primary"
                                 strokeWidth={2}
                               />
                               {item.name}
-                            </Link>
+                            </button>
                           ))}
                         </motion.div>
                       )}
@@ -162,15 +173,15 @@ export default function Navbar() {
 
             {/* Right Side Actions */}
             <div className="flex items-center gap-1.5 sm:gap-3">
-              <motion.a
-                href="#contact"
+              <motion.button
+                onClick={() => handleNavClick("/contact")}
                 whileHover={{ scale: 1.035 }}
                 whileTap={{ scale: 0.97 }}
-                className="hidden items-center gap-2 rounded-full bg-cta px-4 py-2 text-sm font-black text-white transition-all hover:bg-cta-hover sm:flex"
+                className="hidden items-center gap-2 rounded-full bg-cta px-4 py-2 text-[16px] font-black text-white transition-all hover:bg-cta-hover sm:flex"
               >
                 <Phone className="h-4 w-4" strokeWidth={2.5} />
                 <span>Call now</span>
-              </motion.a>
+              </motion.button>
 
               {/* Mobile Menu Toggle */}
               <motion.button
@@ -255,10 +266,10 @@ export default function Navbar() {
                           <button
                             onClick={() =>
                               setMobileDropdown(
-                                mobileDropdown === link.name ? null : link.name,
+                                mobileDropdown === link.name ? null : link.name
                               )
                             }
-                            className="flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-base font-black text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
+                            className="flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-[16px] font-extrabold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
                           >
                             {link.name}
                             <ChevronDown
@@ -284,18 +295,17 @@ export default function Navbar() {
                               >
                                 <div className="ml-4 border-l-2 border-primary/20 py-2 pl-4">
                                   {link.dropdown.map((item) => (
-                                    <Link
+                                    <button
                                       key={item.name}
-                                      to={item.href}
-                                      onClick={closeMobileMenu}
-                                      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-extrabold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
+                                      onClick={() => handleNavClick(item.href)}
+                                      className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] font-extrabold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
                                     >
                                       <item.icon
                                         className="h-4 w-4 text-primary"
                                         strokeWidth={2}
                                       />
                                       {item.name}
-                                    </Link>
+                                    </button>
                                   ))}
                                 </div>
                               </motion.div>
@@ -303,13 +313,12 @@ export default function Navbar() {
                           </AnimatePresence>
                         </div>
                       ) : (
-                        <Link
-                          to={link.href}
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl px-4 py-3.5 text-base font-black text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
+                        <button
+                          onClick={() => handleNavClick(link.href)}
+                          className="block w-full text-left rounded-2xl px-4 py-3.5 text-[16px] font-extrabold text-gray-900 transition-all hover:bg-red-50 hover:text-primary"
                         >
                           {link.name}
-                        </Link>
+                        </button>
                       )}
                     </motion.div>
                   ))}
@@ -321,14 +330,13 @@ export default function Navbar() {
                   transition={{ delay: 0.4 }}
                   className="mt-8 space-y-3"
                 >
-                  <a
-                    href="#contact"
-                    onClick={closeMobileMenu}
-                    className="flex w-full items-center justify-center gap-2 rounded-2xl bg-cta px-6 py-4 text-base font-black text-white transition-all hover:bg-cta-hover"
+                  <button
+                    onClick={() => handleNavClick("/contact")}
+                    className="flex w-full items-center justify-center gap-2 rounded-2xl bg-cta px-6 py-4 text-[16px] font-extrabold text-white transition-all hover:bg-cta-hover"
                   >
                     <Phone className="h-5 w-5" strokeWidth={2.5} />
                     Call now
-                  </a>
+                  </button>
                 </motion.div>
 
                 <motion.div

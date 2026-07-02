@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Sparkles,
@@ -104,13 +105,22 @@ function LogoMarquee() {
 }
 
 export default function Hero() {
+  const navigate = useNavigate();
+
+  const scrollToForm = () => {
+    const formSection = document.getElementById("form-section");
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <section className="relative w-full min-h-screen overflow-hidden bg-white font-sans">
       <motion.div
         variants={container}
         initial="hidden"
         animate="visible"
-        className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-y-5 px-4 pt-28 pb-12 sm:px-6 md:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] lg:gap-x-10 lg:gap-y-4 lg:pt-32 lg:pb-20 xl:gap-x-14 "
+        className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-y-5 px-4 pt-20 pb-12 sm:px-6 md:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] lg:gap-x-10 lg:gap-y-4 lg:pt-32 lg:pb-20 xl:gap-x-14 "
       >
         {/* Content - Left Side on Desktop */}
         <div className="order-1 w-full max-w-xl mx-auto text-center lg:order-1 lg:col-start-1 lg:row-start-1 lg:self-end lg:text-left lg:mx-0">
@@ -206,6 +216,7 @@ export default function Hero() {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={scrollToForm}
               className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-primary to-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:from-primary/90 hover:to-accent/90 sm:px-6 sm:py-3 sm:text-base"
             >
               <span className="relative z-10">Request a Machine</span>
@@ -216,6 +227,7 @@ export default function Hero() {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => navigate("/contact")}
               className="inline-flex items-center justify-center gap-1.5 rounded-full border-2 border-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-700 transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary sm:px-6 sm:py-3 sm:text-base"
             >
               Call us

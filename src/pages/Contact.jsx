@@ -92,20 +92,10 @@ function ReasonCard({ icon: Icon, title, description, index }) {
       onMouseMove={handleMouseMove}
       className="group relative h-full"
     >
-      {/* index numeral — sits in the clipped notch, sibling so it stays visible */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute right-3 top-3 select-none text-[11px] font-bold tracking-[0.1em] text-white"
-      >
-        {index}
-      </span>
-
-      {/* clipped white panel */}
+      {/* white panel */}
       <div
         className="relative flex h-full flex-col overflow-hidden bg-white p-8 pt-9 shadow-[0_1px_2px_rgba(17,24,39,0.04)] transition-all duration-500 ease-out group-hover:-translate-y-2 group-hover:shadow-[0_30px_60px_-18px_rgba(0,0,0,0.35)]"
         style={{
-          clipPath:
-            "polygon(0% 0%, calc(100% - 44px) 0%, 100% 44px, 100% 100%, 0% 100%)",
           borderRadius: "28px",
         }}
       >
@@ -152,7 +142,7 @@ export default function Contact() {
       {/* ============================================================ */}
       {/*  SECTION 1 — Hero                                              */}
       {/* ============================================================ */}
-      <section className="relative overflow-hidden px-6 pt-28 pb-24 sm:pt-32 sm:pb-28 lg:pt-40 lg:pb-36">
+      <section className="relative overflow-hidden px-6 pt-20 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20">
         {/* Decorative blurred shapes */}
         <div
           aria-hidden="true"
@@ -223,7 +213,7 @@ export default function Contact() {
           >
             <a
               href="#contact-form"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#B91C1C] px-7 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_-6px_rgba(185,28,28,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-6px_rgba(185,28,28,0.55)] sm:w-auto"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#B91C1C] px-7 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_-6px_rgba(185,28,28,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-6px_rgba(185,28,28,0.55)]"
             >
               Get Free Quote
               <ArrowRight
@@ -234,7 +224,7 @@ export default function Contact() {
 
             <a
               href="tel:+18001234567"
-              className="glass inline-flex w-full items-center justify-center gap-2 rounded-full border border-[rgb(229_231_235/1)] px-7 py-3.5 text-sm font-semibold text-[#111827] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#DC2626]/30 sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#DC2626] px-7 py-3.5 text-sm font-semibold text-[#111827] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#DC2626]/5"
             >
               <Phone className="h-4 w-4" strokeWidth={2.25} />
               Call Us
@@ -246,7 +236,7 @@ export default function Contact() {
       {/* ============================================================ */}
       {/*  SECTION 2 — Why Contact Us                                    */}
       {/* ============================================================ */}
-      <section className="relative overflow-hidden bg-[#991B1B] px-6 pb-24 pt-28 sm:pb-28 sm:pt-32">
+      <section className="relative overflow-hidden bg-[#991B1B] px-6 py-20 sm:py-24 lg:py-28">
         {/* top S-curve — blends out of the white hero section above */}
         <svg
           aria-hidden="true"
@@ -307,7 +297,7 @@ export default function Contact() {
       {/* ============================================================ */}
       {/*  Existing Contact Form                                         */}
       {/* ============================================================ */}
-      <section id="contact-form" className="px-6 py-24 sm:py-28">
+      <section id="contact-form" className="w-full">
         <Suspense fallback={null}>
           <Form />
         </Suspense>

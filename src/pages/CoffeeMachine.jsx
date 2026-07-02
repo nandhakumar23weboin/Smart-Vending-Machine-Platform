@@ -195,6 +195,9 @@ const MachineCard = memo(({ machine, index }) => {
 
           {/* Buy Now button - Reduced size for mobile */}
           <motion.button
+            onClick={() => {
+              document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
+            }}
             whileTap={{ scale: 0.93 }}
             className="flex items-center justify-center bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-semibold rounded-md sm:rounded-lg shadow-sm sm:shadow-md shadow-[#991b1b]/20 transition-colors duration-200 whitespace-nowrap flex-shrink-0
             text-[10px] px-2 py-1
@@ -293,6 +296,7 @@ const CoffeeMachine = () => {
 
         {/* ── Form Section ── */}
         <motion.div
+          id="contact-form"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

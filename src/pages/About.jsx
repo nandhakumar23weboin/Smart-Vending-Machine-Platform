@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   Sparkles,
   ArrowRight,
@@ -297,6 +298,8 @@ function IndustryCard({ icon: Icon, title, description }) {
 /* ================================================================== */
 
 export default function About() {
+  const navigate = useNavigate();
+
   return (
     <main className="min-h-screen bg-white text-[#111827]">
       {/* ============================================================ */}
@@ -351,21 +354,26 @@ export default function About() {
             everyday performance.
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#991B1B] px-8 py-4 text-sm font-semibold text-white shadow-[0_8px_32px_-6px_rgba(153,27,27,0.6)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_-6px_rgba(153,27,27,0.8)] hover:bg-[#7f1717]"
+          <motion.div variants={fadeUp} className="mt-10 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row">
+            <button
+              onClick={() => {
+                document.getElementById("about-form")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#B91C1C] px-7 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_-6px_rgba(185,28,28,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-6px_rgba(185,28,28,0.55)]"
             >
               Get Free Quote
-              <ArrowRight className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#991B1B]/30 px-8 py-4 text-sm font-semibold text-[#111827] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#991B1B]/60 hover:bg-[#991B1B]/5"
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.25} aria-hidden="true" />
+            </button>
+            <button
+              onClick={() => {
+                navigate("/contact");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#DC2626] px-7 py-3.5 text-sm font-semibold text-[#111827] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#DC2626]/5"
             >
-              <Phone className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
+              <Phone className="h-4 w-4" strokeWidth={2.25} aria-hidden="true" />
               Contact Us
-            </a>
+            </button>
           </motion.div>
         </motion.div>
       </section>
@@ -623,15 +631,17 @@ export default function About() {
       {/* ============================================================ */}
       {/* 6. FORM                                                       */}
       {/* ============================================================ */}
-      <Suspense
-        fallback={
-          <div className="px-6 py-16" aria-hidden="true">
-            <div className="mx-auto h-64 max-w-6xl animate-pulse rounded-3xl bg-gray-100" />
-          </div>
-        }
-      >
-        <Form />
-      </Suspense>
+      <div id="about-form">
+        <Suspense
+          fallback={
+            <div className="px-6 py-16" aria-hidden="true">
+              <div className="mx-auto h-64 max-w-6xl animate-pulse rounded-3xl bg-gray-100" />
+            </div>
+          }
+        >
+          <Form />
+        </Suspense>
+      </div>
     </main>
   );
 }

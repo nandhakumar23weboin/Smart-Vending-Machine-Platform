@@ -42,10 +42,6 @@ body {
   min-height: 100vh;
 }
 
-button,
-a {
-  font: inherit;
-}
 
 ::selection {
   background: rgb(153 27 27 / 0.15);

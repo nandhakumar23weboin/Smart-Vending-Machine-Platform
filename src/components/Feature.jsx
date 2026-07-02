@@ -15,7 +15,7 @@ const fadeUp = {
 export default function Features() {
   return (
     <section className="relative w-full overflow-hidden bg-background font-sans">
-      <div className="mx-auto max-w-7xl px-4 pt-12 pb-0 sm:px-6 sm:pt-16 sm:pb-0 lg:px-8 lg:pt-20 lg:pb-0">
+      <div className="mx-auto max-w-7xl px-4 pt-10 pb-10 sm:px-6 sm:pt-14 sm:pb-14 lg:px-8 lg:pt-20 lg:pb-20">
         {/* Heading */}
         <motion.div
           initial="hidden"

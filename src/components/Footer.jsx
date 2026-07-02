@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
-import { 
-  HiPhone, 
-  HiMail, 
-  HiLocationMarker, 
+import {
+  HiPhone,
+  HiMail,
+  HiLocationMarker,
   HiClock,
   HiShieldCheck,
   HiLightningBolt,
@@ -33,38 +33,37 @@ const Footer = () => {
   const quickLinks = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
-    { name: 'Solutions', href: '/solutions' },
     { name: 'Contact', href: '/contact' },
   ];
 
   const solutions = [
     { name: 'Snack Vending Machine', href: '/solutions/snack-vending' },
     { name: 'Beverage Vending Machine', href: '/solutions/beverage-vending' },
-    
+
   ];
 
   const contactInfo = [
-    { 
-      icon: HiPhone, 
-      label: 'Phone', 
+    {
+      icon: HiPhone,
+      label: 'Phone',
       value: '+91 XXXXX XXXXX',
       href: 'tel:+91XXXXXXXXXX'
     },
-    { 
-      icon: HiMail, 
-      label: 'Email', 
+    {
+      icon: HiMail,
+      label: 'Email',
       value: 'sales@company.com',
       href: 'mailto:sales@company.com'
     },
-    { 
-      icon: HiLocationMarker, 
-      label: 'Location', 
+    {
+      icon: HiLocationMarker,
+      label: 'Location',
       value: 'Chennai, Tamil Nadu',
       href: '#'
     },
-    { 
-      icon: HiClock, 
-      label: 'Business Hours', 
+    {
+      icon: HiClock,
+      label: 'Business Hours',
       value: 'Mon – Sat | 9:00 AM – 6:00 PM',
       href: '#'
     },
@@ -80,20 +79,20 @@ const Footer = () => {
     <footer ref={footerRef} className="relative">
       {/* Wave Divider at Top */}
       <div className="relative w-full overflow-hidden leading-none bg-white">
-        <svg 
-          viewBox="0 0 1440 120" 
+        <svg
+          viewBox="0 0 1440 120"
           className="relative block w-full h-[40px] sm:h-[50px] lg:h-[70px]"
           preserveAspectRatio="none"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path 
+          <path
             d="M0 60 
                C320 100, 480 20, 720 45 
                C960 70, 1120 15, 1440 50 
                L1440 120 
                L0 120 
-               Z" 
+               Z"
             fill="url(#footerGradient)"
           />
           <defs>
@@ -110,7 +109,7 @@ const Footer = () => {
       <div className="bg-gradient-to-br from-[#7f1d1d] via-[#8b1d1d] to-[#991b1b]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14">
           <div className="grid grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-6">
-            
+
             {/* COLUMN 1: Company */}
             <motion.div
               variants={fadeUpVariants}
@@ -127,11 +126,11 @@ const Footer = () => {
                   Smart<span className="text-red-300">Vend</span>
                 </span>
               </div>
-              
+
               <p className="text-red-100/70 text-sm leading-relaxed mb-5 max-w-xs">
                 We provide modern smart vending machine solutions that help businesses automate sales and enhance customer convenience.
               </p>
-              
+
               <div className="space-y-2.5">
                 {trustBadges.map((badge, index) => (
                   <motion.div
@@ -255,7 +254,7 @@ const Footer = () => {
               >
                 © 2026 Smart Vending Machine. All rights reserved.
               </motion.p>
-              
+
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
