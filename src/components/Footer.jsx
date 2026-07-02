@@ -12,6 +12,7 @@ import {
   HiChevronRight
 } from 'react-icons/hi';
 import { SiMinutemailer } from 'react-icons/si';
+import { FaWhatsapp, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   const footerRef = useRef(null);
@@ -74,6 +75,12 @@ const Footer = () => {
     { icon: HiStar, text: 'Premium Quality' },
   ];
 
+  const socialLinks = [
+    { icon: FaWhatsapp, href: '#', label: 'WhatsApp' },
+    { icon: FaInstagram, href: '#', label: 'Instagram' },
+    { icon: HiMail, href: '#', label: 'Email' },
+  ];
+
   return (
     <footer ref={footerRef} className="relative">
       {/* Wave Divider at Top */}
@@ -130,7 +137,7 @@ const Footer = () => {
                 We provide modern smart vending machine solutions that help businesses automate sales and enhance customer convenience.
               </p>
 
-              <div className="space-y-2.5">
+              <div className="space-y-2.5 mb-6">
                 {trustBadges.map((badge, index) => (
                   <motion.div
                     key={index}
@@ -143,6 +150,21 @@ const Footer = () => {
                     <badge.icon className="w-4 h-4 text-red-300 flex-shrink-0" />
                     <span className="text-sm font-medium">{badge.text}</span>
                   </motion.div>
+                ))}
+              </div>
+
+              {/* Social Links */}
+              <div className="flex items-center gap-3">
+                {socialLinks.map((social, index) => (
+                  <motion.a
+                    key={index}
+                    href={social.href}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    className="w-9 h-9 rounded-full bg-red-900/40 border border-red-700/30 flex items-center justify-center text-red-200/70 hover:bg-red-800 hover:text-white hover:border-red-500/50 transition-all duration-300 shadow-sm"
+                    aria-label={social.label}
+                  >
+                    <social.icon className="w-4 h-4" />
+                  </motion.a>
                 ))}
               </div>
             </motion.div>
@@ -185,7 +207,7 @@ const Footer = () => {
               className="col-span-1 lg:col-span-3"
             >
               <h3 className="text-white font-semibold text-xs uppercase tracking-[0.15em] mb-5 opacity-90">
-                Solutions
+                Category
               </h3>
               <ul className="space-y-3">
                 {solutions.map((solution, index) => (
