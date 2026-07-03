@@ -114,7 +114,7 @@ const whyChooseUs = [
   },
   {
     icon: SlidersHorizontal,
-    title: "Business Customization",
+    title: "Business Custom",
     description: "Product range, branding, and machine type tailored to how your business actually runs.",
   },
   {
