@@ -450,11 +450,11 @@ const SectionHeader = memo(() => (
 
     <h2
       style={{
-        fontSize: "48px",
+        fontSize: "41.6px",
         fontWeight: 600,
         fontStyle: "normal",
         color: "#ffffff",
-        lineHeight: "50.4px",
+        lineHeight: "1.2",
         letterSpacing: "-0.02em",
         fontFamily:
           '"Tiktoksans Variablefont Opsz Slnt Wdth Wght", "Plus Jakarta Sans", Inter, ui-sans-serif, system-ui, sans-serif',

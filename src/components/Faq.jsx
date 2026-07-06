@@ -43,7 +43,7 @@ export default function Faq() {
   };
 
   return (
-    <section className="bg-[#fafafa] py-10 sm:py-14 lg:py-20 px-4">
+    <section className="py-10 sm:py-14 lg:py-20 px-4">
       <div className="max-w-3xl mx-auto">
 
         {/* Heading */}

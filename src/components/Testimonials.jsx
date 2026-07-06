@@ -182,18 +182,34 @@ const Testimonials = () => {
 
   return (
     <section
-      className="relative overflow-hidden"
-      style={{ background: "#9F0712" }}
+      style={{ 
+        background: "linear-gradient(135deg, #9F0712 0%, #7f1d1d 100%)", 
+        position: "relative"
+      }}
     >
-      {/* ── TOP WAVE: white above curving down into red ── */}
-      <div className="relative w-full pointer-events-none" style={{ lineHeight: 0, marginBottom: "-1px" }}>
+      {/* ── TOP WAVE ── */}
+      <div 
+        style={{ 
+          position: "absolute",
+          top: "-2px",
+          left: 0,
+          width: "100%",
+          overflow: "hidden",
+          lineHeight: 0,
+          zIndex: 2,
+        }}
+      >
         <svg
           viewBox="0 0 1440 80"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
-          style={{ display: "block", width: "100%", height: "clamp(40px, 6vw, 80px)" }}
+          style={{ 
+            display: "block", 
+            width: "100%", 
+            height: "clamp(40px, 6vw, 80px)",
+            position: "relative"
+          }}
         >
-          {/* Start from bottom-left of white area */}
           <path
             d="M0,80 L0,0 L1440,0 L1440,40 C1200,80 960,20 720,50 C480,80 240,20 0,50 Z"
             fill="#ffffff"
@@ -202,7 +218,7 @@ const Testimonials = () => {
       </div>
 
       {/* ── CONTENT ── */}
-      <div className="my-8 sm:my-0 py-8 sm:py-14 lg:py-20 overflow-hidden">
+      <div style={{ padding: "clamp(3rem, 7vw, 7rem) 0", position: "relative", zIndex: 1, overflow: "hidden" }}>
         <div className="container mx-auto">
           <SectionHeader />
         </div>
@@ -216,15 +232,29 @@ const Testimonials = () => {
         <TestimonialRow items={rowTwo} direction="right" duration={32} />
       </div>
 
-      {/* ── BOTTOM WAVE: red curving back up to white ── */}
-      <div className="relative w-full pointer-events-none" style={{ lineHeight: 0, marginTop: "-1px" }}>
+      {/* ── BOTTOM WAVE ── */}
+      <div 
+        style={{ 
+          position: "absolute",
+          bottom: "-2px",
+          left: 0,
+          width: "100%",
+          overflow: "hidden",
+          lineHeight: 0,
+          zIndex: 2,
+        }}
+      >
         <svg
           viewBox="0 0 1440 80"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
-          style={{ display: "block", width: "100%", height: "clamp(40px, 6vw, 80px)" }}
+          style={{ 
+            display: "block", 
+            width: "100%", 
+            height: "clamp(40px, 6vw, 80px)",
+            position: "relative"
+          }}
         >
-          {/* End at top-left of white area */}
           <path
             d="M0,80 L1440,80 L1440,0 L1440,30 C1200,0 960,60 720,30 C480,0 240,60 0,30 L0,0 Z"
             fill="#ffffff"
