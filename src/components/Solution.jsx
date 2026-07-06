@@ -82,25 +82,24 @@ const solutions = [
   },
 ];
 
-function calculateGap(width) {
-  const minWidth = 1024;
-  const maxWidth = 1456;
-  const minGap = 48;
-  const maxGap = 72;
-  if (width <= minWidth) return minGap;
-  if (width >= maxWidth) return Math.max(minGap, maxGap + 0.06 * (width - maxWidth));
-  return minGap + (maxGap - minGap) * ((width - minWidth) / (maxWidth - minWidth));
-}
-
-// ── Stacked image carousel ──
+// ── Stacked image carousel with smooth transitions ──
 const ImageStack = memo(({ solutions, activeIndex }) => {
   const containerRef = useRef(null);
-  const [containerWidth, setContainerWidth] = useState(500);
+  const [containerWidth, setContainerWidth] = useState(400);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
     function handleResize() {
-      if (containerRef.current) setContainerWidth(containerRef.current.offsetWidth);
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+      checkMobile();
     }
+    
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -109,8 +108,8 @@ const ImageStack = memo(({ solutions, activeIndex }) => {
   const length = solutions.length;
 
   function getImageStyle(index) {
-    const gap = calculateGap(containerWidth);
-    const maxStickUp = gap * 0.75;
+    const gap = isMobile ? 20 : 48;
+    const maxStickUp = isMobile ? 15 : 36;
     const isActive = index === activeIndex;
     const isLeft = (activeIndex - 1 + length) % length === index;
     const isRight = (activeIndex + 1) % length === index;
@@ -121,32 +120,37 @@ const ImageStack = memo(({ solutions, activeIndex }) => {
         opacity: 1,
         pointerEvents: "auto",
         transform: "translateX(0px) translateY(0px) scale(1) rotateY(0deg)",
-        transition: "all 0.75s cubic-bezier(.4,2,.3,1)",
+        transition: "all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        filter: "brightness(1) blur(0px)",
       };
     }
     if (isLeft) {
       return {
         zIndex: 2,
-        opacity: 1,
+        opacity: 0.85,
         pointerEvents: "auto",
-        transform: `translateX(-${gap}px) translateY(-${maxStickUp}px) scale(0.84) rotateY(14deg)`,
-        transition: "all 0.75s cubic-bezier(.4,2,.3,1)",
+        transform: `translateX(-${gap}px) translateY(-${maxStickUp}px) scale(0.9) rotateY(8deg)`,
+        transition: "all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        filter: "brightness(0.85) blur(1px)",
       };
     }
     if (isRight) {
       return {
         zIndex: 2,
-        opacity: 1,
+        opacity: 0.85,
         pointerEvents: "auto",
-        transform: `translateX(${gap}px) translateY(-${maxStickUp}px) scale(0.84) rotateY(-14deg)`,
-        transition: "all 0.75s cubic-bezier(.4,2,.3,1)",
+        transform: `translateX(${gap}px) translateY(-${maxStickUp}px) scale(0.9) rotateY(-8deg)`,
+        transition: "all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        filter: "brightness(0.85) blur(1px)",
       };
     }
     return {
       zIndex: 1,
       opacity: 0,
       pointerEvents: "none",
-      transition: "all 0.75s cubic-bezier(.4,2,.3,1)",
+      transform: "scale(0.7)",
+      transition: "all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)",
+      filter: "brightness(0.5) blur(2px)",
     };
   }
 
@@ -156,8 +160,11 @@ const ImageStack = memo(({ solutions, activeIndex }) => {
       style={{
         position: "relative",
         width: "100%",
-        height: "clamp(200px, 30vw, 380px)",
+        maxWidth: isMobile ? "320px" : "450px",
+        height: isMobile ? "200px" : "280px",
+        margin: "0 auto",
         perspective: "1000px",
+        overflow: "hidden",
       }}
     >
       {solutions.map((solution, i) => (
@@ -170,10 +177,12 @@ const ImageStack = memo(({ solutions, activeIndex }) => {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            borderRadius: "1.25rem",
-            boxShadow: "0 12px 40px rgba(0,0,0,0.28)",
-            border: "3px solid rgba(255,255,255,0.9)",
+            borderRadius: "1rem",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.2)",
+            border: "2px solid rgba(255,255,255,0.8)",
             ...getImageStyle(i),
+            maxWidth: "100%",
+            willChange: "transform, opacity, filter",
           }}
           onError={(e) => {
             e.target.src = "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop";
@@ -225,14 +234,16 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
   return (
     <motion.div
       key={activeIndex}
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.28, ease: "easeInOut" }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
       style={{ 
         display: "flex", 
         flexDirection: "column",
         height: "100%",
-        minHeight: 0
+        minHeight: 0,
+        width: "100%",
+        overflow: "hidden",
       }}
       onMouseEnter={onInteractionStart}
       onMouseLeave={onInteractionEnd}
@@ -244,9 +255,10 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
         display: "flex", 
         alignItems: "center", 
         gap: "0.75rem", 
-        marginBottom: "clamp(0.75rem, 1.5vw, 1.25rem)", 
+        marginBottom: "clamp(0.75rem, 1.5vw, 1rem)", 
         flexShrink: 0,
-        justifyContent: isMobile ? "center" : "flex-start"
+        justifyContent: isMobile ? "center" : "flex-start",
+        flexWrap: "wrap",
       }}>
         <div
           style={{
@@ -274,6 +286,7 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
             fontWeight: 600,
             fontFamily: "'Plus Jakarta Sans', sans-serif",
             border: "1px solid rgba(159, 7, 18, 0.15)",
+            whiteSpace: "nowrap",
           }}
         >
           {solution.badge}
@@ -285,9 +298,10 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
         display: "flex", 
         flexDirection: isMobile ? "column" : "row",
         flexWrap: "nowrap", 
-        gap: "clamp(0.75rem, 1.5vw, 1.25rem)", 
+        gap: "clamp(0.5rem, 1vw, 1rem)", 
         flex: 1, 
-        minHeight: 0 
+        minHeight: 0,
+        width: "100%",
       }}>
         {/* Title and Description Column */}
         <div style={{ 
@@ -296,7 +310,9 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
           flex: 1, 
           minWidth: 0,
           alignItems: isMobile ? "center" : "flex-start",
-          textAlign: isMobile ? "center" : "left"
+          textAlign: isMobile ? "center" : "left",
+          width: "100%",
+          overflow: "hidden",
         }}>
           {/* Solution title */}
           <motion.h3
@@ -311,6 +327,8 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
               letterSpacing: "-0.01em",
               textAlign: isMobile ? "center" : "left",
               width: "100%",
+              wordWrap: "break-word",
+              overflowWrap: "break-word",
             }}
             dangerouslySetInnerHTML={{ __html: solution.title }}
           />
@@ -325,6 +343,9 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
               fontFamily: "'Plus Jakarta Sans', Inter, ui-sans-serif, system-ui, sans-serif",
               flexShrink: 0,
               textAlign: isMobile ? "center" : "left",
+              width: "100%",
+              wordWrap: "break-word",
+              overflowWrap: "break-word",
             }}
           >
             {solution.description}
@@ -332,7 +353,7 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
         </div>
       </div>
 
-      {/* Features tags - always horizontal on both desktop and mobile */}
+      {/* Features tags */}
       <div
         style={{
           display: "flex",
@@ -342,6 +363,7 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
           flexWrap: "wrap",
           marginBottom: "clamp(0.75rem, 1.2vw, 1rem)",
           flexShrink: 0,
+          width: "100%",
         }}
       >
         {solution.features.map((feature, idx) => (
@@ -353,10 +375,11 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
       <div
         style={{
           borderTop: "1px solid #f3f4f6",
-          paddingTop: "clamp(0.75rem, 1vw, 1rem)",
+          paddingTop: "clamp(0.75rem, 1vw, 0.75rem)",
           flexShrink: 0,
           display: "flex",
           justifyContent: isMobile ? "center" : "flex-start",
+          width: "100%",
         }}
       >
         <motion.button
@@ -381,6 +404,8 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
             boxShadow: "0 4px 16px rgba(159, 7, 18, 0.25), 0 1px 3px rgba(0,0,0,0.1)",
             fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', 'Plus Jakarta Sans', sans-serif",
             transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+            whiteSpace: "nowrap",
+            maxWidth: "100%",
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = "linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%)";
@@ -409,76 +434,94 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
 SolutionContent.displayName = "SolutionContent";
 
 // ── Section header ──
-const SectionHeader = memo(() => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-    viewport={{ once: true }}
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      textAlign: "center",
-      maxWidth: 600,
-      margin: "0 auto clamp(1.5rem, 3vw, 3rem) auto",
-      padding: "0 1rem",
-    }}
-  >
-    {/* Pill badge */}
-    <span
+const SectionHeader = memo(() => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true }}
       style={{
-        display: "inline-flex",
+        display: "flex",
+        flexDirection: "column",
         alignItems: "center",
-        gap: "0.5rem",
-        borderRadius: 9999,
-        padding: "0.375rem 1rem",
-        fontSize: "clamp(0.75rem, 1vw, 0.85rem)",
-        fontWeight: 500,
-        color: "#ffffff",
-        border: "1px solid rgba(255,255,255,0.3)",
-        background: "rgba(255,255,255,0.1)",
-        fontFamily: "'Plus Jakarta Sans', sans-serif",
-        marginBottom: "clamp(0.75rem, 1.2vw, 1.25rem)",
-        backdropFilter: "blur(8px)",
-        letterSpacing: "0.02em",
+        textAlign: "center",
+        maxWidth: 600,
+        margin: "0 auto clamp(1.5rem, 3vw, 2rem) auto",
+        padding: "0 1rem",
+        width: "100%",
       }}
     >
-      <Coffee size={14} />
-      Smart Vending Solutions
-    </span>
+      {/* Pill badge */}
+      <span
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.5rem",
+          borderRadius: 9999,
+          padding: "0.375rem 1rem",
+          fontSize: "clamp(0.75rem, 1vw, 0.85rem)",
+          fontWeight: 500,
+          color: "#ffffff",
+          border: "1px solid rgba(255,255,255,0.3)",
+          background: "rgba(255,255,255,0.1)",
+          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          marginBottom: "clamp(0.75rem, 1.2vw, 1rem)",
+          backdropFilter: "blur(8px)",
+          letterSpacing: "0.02em",
+          whiteSpace: "nowrap",
+        }}
+      >
+        <Coffee size={14} />
+        Smart Vending Solutions
+      </span>
 
-    <h2
-      style={{
-        fontSize: "41.6px",
-        fontWeight: 600,
-        fontStyle: "normal",
-        color: "#ffffff",
-        lineHeight: "1.2",
-        letterSpacing: "-0.02em",
-        fontFamily:
-          '"Tiktoksans Variablefont Opsz Slnt Wdth Wght", "Plus Jakarta Sans", Inter, ui-sans-serif, system-ui, sans-serif',
-        marginBottom: "clamp(0.5rem, 1vw, 1rem)",
-      }}
-    >
-      Find the Right Machine for{" "}
-      <span style={{ color: "rgba(255,255,255,0.7)" }}>Your Needs</span>
-    </h2>
+      <h2
+        style={{
+          fontFamily: '"Tiktoksans Variablefont Opsz Slnt Wdth Wght", "Plus Jakarta Sans", Inter, ui-sans-serif, system-ui, sans-serif',
+          fontStyle: "normal",
+          fontWeight: 600,
+          fontSize: isMobile ? "20px" : "41.6px",
+          lineHeight: isMobile ? "28px" : "52px",
+          color: "#ffffff",
+          letterSpacing: "-0.02em",
+          marginBottom: "clamp(0.5rem, 1vw, 0.75rem)",
+          wordWrap: "break-word",
+          overflowWrap: "break-word",
+        }}
+      >
+        Find the Right Machine for{" "}
+        <span style={{ color: "rgba(255,255,255,0.7)" }}>Your Needs</span>
+      </h2>
 
-    <p
-      style={{
-        fontSize: "clamp(0.85rem, 1.2vw, 1.05rem)",
-        color: "rgba(255,255,255,0.75)",
-        lineHeight: 1.6,
-        fontFamily: "'Plus Jakarta Sans', sans-serif",
-        maxWidth: 480,
-        fontWeight: 400,
-      }}
-    >
-      Transform your business with intelligent vending technology. Discover smart solutions designed for every space.
-    </p>
-  </motion.div>
-));
+      <p
+        style={{
+          fontSize: "clamp(0.85rem, 1.2vw, 1.05rem)",
+          color: "rgba(255,255,255,0.75)",
+          lineHeight: 1.6,
+          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          maxWidth: 480,
+          fontWeight: 400,
+          wordWrap: "break-word",
+          overflowWrap: "break-word",
+        }}
+      >
+        Transform your business with intelligent vending technology. Discover smart solutions designed for every space.
+      </p>
+    </motion.div>
+  );
+});
 SectionHeader.displayName = "SectionHeader";
 
 // ── Main component ──
@@ -514,20 +557,18 @@ const Solution = () => {
     setIsPaused(true);
   }, []);
 
-  // Pause autoplay handlers
   const handleInteractionStart = useCallback(() => {
     setHasUserInteracted(true);
     setIsPaused(true);
   }, []);
 
   const handleInteractionEnd = useCallback(() => {
-    // Don't resume autoplay if user has interacted
     if (!hasUserInteracted) {
       setIsPaused(false);
     }
   }, [hasUserInteracted]);
 
-  // Autoplay - only if user hasn't interacted
+  // Autoplay
   useEffect(() => {
     if (!isPaused && !hasUserInteracted) {
       autoplayRef.current = setInterval(() => {
@@ -576,7 +617,7 @@ const Solution = () => {
     }
   }, [handleNext, handlePrev, handleInteractionStart]);
 
-  // Mouse drag handlers for desktop swipe
+  // Mouse drag handlers
   const handleMouseDown = useCallback((e) => {
     mouseDownX.current = e.clientX;
   }, []);
@@ -600,7 +641,10 @@ const Solution = () => {
     <section
       style={{ 
         background: "linear-gradient(135deg, #9F0712 0%, #7f1d1d 100%)", 
-        position: "relative"
+        position: "relative",
+        overflow: "hidden",
+        width: "100%",
+        maxWidth: "100vw",
       }}
     >
       {/* ── TOP WAVE ── */}
@@ -622,7 +666,7 @@ const Solution = () => {
           style={{ 
             display: "block", 
             width: "100%", 
-            height: "clamp(40px, 6vw, 80px)",
+            height: "clamp(30px, 5vw, 60px)",
             position: "relative"
           }}
         >
@@ -654,11 +698,19 @@ const Solution = () => {
 
       {/* ── CONTENT ── */}
       <div style={{ 
-        padding: "clamp(3rem, 7vw, 7rem) 0", 
+        padding: "clamp(2rem, 5vw, 5rem) 0", 
         position: "relative", 
-        zIndex: 1 
+        zIndex: 1,
+        width: "100%",
+        overflow: "hidden",
       }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(1rem, 3vw, 1.5rem)" }}>
+        <div style={{ 
+          maxWidth: 1200, 
+          margin: "0 auto", 
+          padding: "0 clamp(1rem, 3vw, 1.5rem)",
+          width: "100%",
+          boxSizing: "border-box",
+        }}>
           <SectionHeader />
 
           {/* Main grid */}
@@ -670,8 +722,9 @@ const Solution = () => {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
-              gap: "clamp(1.5rem, 3vw, 4rem)",
+              gap: "clamp(1.5rem, 3vw, 3rem)",
               alignItems: "center",
+              width: "100%",
             }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
@@ -683,6 +736,11 @@ const Solution = () => {
             <div style={{ 
               cursor: "grab",
               padding: "clamp(0.5rem, 1vw, 1rem)",
+              width: "100%",
+              overflow: "hidden",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}>
               <ImageStack solutions={solutions} activeIndex={activeIndex} />
             </div>
@@ -694,14 +752,14 @@ const Solution = () => {
                 borderRadius: "1.5rem",
                 border: "1px solid rgba(0,0,0,0.06)",
                 boxShadow: "0 20px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)",
-                padding: "clamp(1.25rem, 2.5vw, 2.5rem)",
+                padding: "clamp(1rem, 2vw, 2rem)",
                 display: "flex",
                 flexDirection: "column",
                 height: "fit-content",
                 position: "relative",
                 overflow: "hidden",
-                WebkitMaskImage: "-webkit-radial-gradient(white, black)",
-                maskImage: "radial-gradient(white, black)",
+                width: "100%",
+                boxSizing: "border-box",
               }}
             >
               {/* Card subtle gradient overlay */}
@@ -751,7 +809,7 @@ const Solution = () => {
           style={{ 
             display: "block", 
             width: "100%", 
-            height: "clamp(40px, 6vw, 80px)",
+            height: "clamp(30px, 5vw, 60px)",
             position: "relative"
           }}
         >
