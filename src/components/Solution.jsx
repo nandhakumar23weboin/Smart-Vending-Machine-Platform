@@ -29,6 +29,8 @@ import { motion } from "framer-motion";
 import eventImage from "../assets/event.jpeg";
 import yourBrandImage from "../assets/yourbrand.jpeg";
 import automaticImage from "../assets/automatic.jpeg";
+import ribbonSvg from "../assets/ribbon.svg";
+import vendingBg from "../assets/vending-bg.svg";
 
 // ── Solutions data with features ──
 const solutions = [
@@ -82,7 +84,7 @@ const solutions = [
   },
 ];
 
-// ── Stacked image carousel with smooth transitions ──
+// ── Stacked image carousel ──
 const ImageStack = memo(({ solutions, activeIndex }) => {
   const containerRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(400);
@@ -165,6 +167,7 @@ const ImageStack = memo(({ solutions, activeIndex }) => {
         margin: "0 auto",
         perspective: "1000px",
         overflow: "hidden",
+        borderRadius: "1rem",
       }}
     >
       {solutions.map((solution, i) => (
@@ -183,6 +186,8 @@ const ImageStack = memo(({ solutions, activeIndex }) => {
             ...getImageStyle(i),
             maxWidth: "100%",
             willChange: "transform, opacity, filter",
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
           }}
           onError={(e) => {
             e.target.src = "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop";
@@ -314,24 +319,43 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
           width: "100%",
           overflow: "hidden",
         }}>
-          {/* Solution title */}
-          <motion.h3
-            style={{
-              color: "#111827",
-              fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
-              lineHeight: 1.3,
-              marginBottom: "clamp(0.5rem, 0.8vw, 0.75rem)",
-              fontWeight: 700,
-              fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', 'Plus Jakarta Sans', sans-serif",
-              flexShrink: 0,
-              letterSpacing: "-0.01em",
-              textAlign: isMobile ? "center" : "left",
-              width: "100%",
-              wordWrap: "break-word",
-              overflowWrap: "break-word",
-            }}
-            dangerouslySetInnerHTML={{ __html: solution.title }}
-          />
+          {/* Solution title with ribbon SVG */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            marginBottom: "clamp(0.5rem, 0.8vw, 0.75rem)",
+            justifyContent: isMobile ? "center" : "flex-start",
+            width: "100%",
+          }}>
+            <motion.h3
+              style={{
+                color: "#111827",
+                fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
+                lineHeight: 1.3,
+                fontWeight: 700,
+                fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', 'Plus Jakarta Sans', sans-serif",
+                letterSpacing: "-0.01em",
+                wordWrap: "break-word",
+                overflowWrap: "break-word",
+                margin: 0,
+              }}
+              dangerouslySetInnerHTML={{ __html: solution.title }}
+            />
+            <img
+              src={ribbonSvg}
+              alt="Ribbon"
+              style={{
+                width: isMobile ? "32px" : "40px",
+                height: isMobile ? "32px" : "40px",
+                flexShrink: 0,
+                filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.1))",
+              }}
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
+            />
+          </div>
 
           {/* Solution description */}
           <motion.p
@@ -341,7 +365,6 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
               lineHeight: 1.55,
               marginBottom: "clamp(0.75rem, 1.2vw, 1rem)",
               fontFamily: "'Plus Jakarta Sans', Inter, ui-sans-serif, system-ui, sans-serif",
-              flexShrink: 0,
               textAlign: isMobile ? "center" : "left",
               width: "100%",
               wordWrap: "break-word",
@@ -647,11 +670,143 @@ const Solution = () => {
         maxWidth: "100vw",
       }}
     >
+      {/* Vending Machine Background Watermark */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 0,
+          overflow: "hidden",
+          pointerEvents: "none",
+        }}
+      >
+        {/* Left side watermarks */}
+        <img
+          src={vendingBg}
+          alt=""
+          style={{
+            position: "absolute",
+            top: "8%",
+            left: "3%",
+            width: "220px",
+            height: "220px",
+            opacity: 0.08,
+            transform: "rotate(-15deg)",
+            filter: "brightness(0) invert(1)",
+          }}
+        />
+        <img
+          src={vendingBg}
+          alt=""
+          style={{
+            position: "absolute",
+            top: "45%",
+            left: "8%",
+            width: "180px",
+            height: "180px",
+            opacity: 0.07,
+            transform: "rotate(-8deg)",
+            filter: "brightness(0) invert(1)",
+          }}
+        />
+        <img
+          src={vendingBg}
+          alt=""
+          style={{
+            position: "absolute",
+            bottom: "12%",
+            left: "5%",
+            width: "200px",
+            height: "200px",
+            opacity: 0.08,
+            transform: "rotate(-20deg)",
+            filter: "brightness(0) invert(1)",
+          }}
+        />
+
+        {/* Right side watermarks */}
+        <img
+          src={vendingBg}
+          alt=""
+          style={{
+            position: "absolute",
+            top: "10%",
+            right: "3%",
+            width: "220px",
+            height: "220px",
+            opacity: 0.08,
+            transform: "rotate(15deg)",
+            filter: "brightness(0) invert(1)",
+          }}
+        />
+        <img
+          src={vendingBg}
+          alt=""
+          style={{
+            position: "absolute",
+            top: "50%",
+            right: "8%",
+            width: "180px",
+            height: "180px",
+            opacity: 0.07,
+            transform: "rotate(8deg)",
+            filter: "brightness(0) invert(1)",
+          }}
+        />
+        <img
+          src={vendingBg}
+          alt=""
+          style={{
+            position: "absolute",
+            bottom: "15%",
+            right: "5%",
+            width: "200px",
+            height: "200px",
+            opacity: 0.08,
+            transform: "rotate(20deg)",
+            filter: "brightness(0) invert(1)",
+          }}
+        />
+
+        {/* Center watermarks */}
+        <img
+          src={vendingBg}
+          alt=""
+          style={{
+            position: "absolute",
+            top: "35%",
+            left: "50%",
+            width: "160px",
+            height: "160px",
+            opacity: 0.06,
+            transform: "translateX(-50%) rotate(-5deg)",
+            filter: "brightness(0) invert(1)",
+          }}
+        />
+        <img
+          src={vendingBg}
+          alt=""
+          style={{
+            position: "absolute",
+            bottom: "30%",
+            left: "50%",
+            width: "170px",
+            height: "170px",
+            opacity: 0.06,
+            transform: "translateX(-50%) rotate(5deg)",
+            filter: "brightness(0) invert(1)",
+          }}
+        />
+      </div>
+
       {/* ── TOP WAVE ── */}
       <div 
         style={{ 
           position: "absolute",
-          top: 0,
+          top: -1,
           left: 0,
           width: "100%",
           overflow: "hidden",
@@ -693,6 +848,7 @@ const Solution = () => {
           `,
           backgroundSize: "30px 30px, 100% 100%, 100% 100%",
           pointerEvents: "none",
+          zIndex: 0,
         }}
       />
 
@@ -794,7 +950,7 @@ const Solution = () => {
       <div 
         style={{ 
           position: "absolute",
-          bottom: 0,
+          bottom: -1,
           left: 0,
           width: "100%",
           overflow: "hidden",
