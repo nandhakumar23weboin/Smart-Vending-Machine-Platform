@@ -16,7 +16,7 @@ import trustedLogo3 from "../assets/trusted by-3.png";
 import trustedLogo4 from "../assets/trusted by-4.png";
 import heroImage from "../assets/hero image.jpg";
 
-// Memoized static data
+// Memoized static data - moved outside component
 const trustLogos = [
   { src: trustedLogo1, alt: "Trusted partner" },
   { src: trustedLogo2, alt: "Trusted partner" },
@@ -51,7 +51,7 @@ const featureCards = [
   },
 ];
 
-// Animation variants (defined outside component to prevent recreation)
+// Animation variants - moved outside component
 const container = {
   hidden: {},
   visible: {
@@ -68,7 +68,6 @@ const fadeUp = {
   },
 };
 
-// Split text animation variants
 const letterContainer = {
   hidden: {},
   visible: {
@@ -96,11 +95,21 @@ const letterAnimation = {
   },
 };
 
-// SplitText component for heading animation
+// Optimized SplitText component with useMemo and React.memo
 const SplitText = React.memo(({ text, className }) => {
   const prefersReducedMotion = useReducedMotion();
   
   const words = useMemo(() => text.split(" "), [text]);
+  const chars = useMemo(() => {
+    return words.map((word, wordIndex) => ({
+      wordIndex,
+      chars: word.split("").map((char, charIndex) => ({
+        charIndex,
+        char,
+        key: `${wordIndex}-${charIndex}`
+      }))
+    }));
+  }, [words]);
 
   if (prefersReducedMotion) {
     return <span className={className}>{text}</span>;
@@ -113,11 +122,11 @@ const SplitText = React.memo(({ text, className }) => {
       animate="visible"
       className={className}
     >
-      {words.map((word, wordIndex) => (
+      {chars.map(({ wordIndex, chars }) => (
         <span key={wordIndex} className="inline-block whitespace-nowrap">
-          {word.split("").map((char, charIndex) => (
+          {chars.map(({ char, key }) => (
             <motion.span
-              key={`${wordIndex}-${charIndex}`}
+              key={key}
               variants={letterAnimation}
               className="inline-block"
               style={{ 
@@ -139,22 +148,30 @@ const SplitText = React.memo(({ text, className }) => {
 
 SplitText.displayName = "SplitText";
 
-// Memoized FeatureCard component
+// Optimized FeatureCard with React.memo
 const FeatureCard = React.memo(({ icon: Icon, label, position, delay }) => {
+  // Memoize animation configs to prevent recreation
+  const animationProps = useMemo(() => ({
+    initial: { opacity: 0, scale: 0.8, y: 20 },
+    animate: { opacity: 1, scale: 1, y: 0 },
+    transition: {
+      duration: 0.6,
+      delay,
+      ease: [0.22, 1, 0.36, 1],
+    }
+  }), [delay]);
+
+  const whileHoverConfig = useMemo(() => ({ scale: 1.06, y: -2 }), []);
+
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{
-        duration: 0.6,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+      {...animationProps}
       className={`absolute ${position} z-20`}
     >
       <motion.div
-        whileHover={{ scale: 1.06, y: -2 }}
+        whileHover={whileHoverConfig}
         className="glass-card flex items-center gap-1 sm:gap-1.5 lg:gap-2 rounded-md sm:rounded-lg lg:rounded-xl px-1.5 py-1 sm:px-2 sm:py-1.5 lg:px-3 lg:py-2 transition-all duration-300 hover:border-red-500 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+        style={{ willChange: "transform" }} // Added will-change hint
       >
         <span className="flex h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
           <Icon className="h-2.5 w-2.5 sm:h-3 sm:w-3 lg:h-3.5 lg:w-3.5" strokeWidth={2.3} />
@@ -169,9 +186,18 @@ const FeatureCard = React.memo(({ icon: Icon, label, position, delay }) => {
 
 FeatureCard.displayName = "FeatureCard";
 
-// Memoized LogoMarquee component
+// Optimized LogoMarquee with React.memo and useMemo
 const LogoMarquee = React.memo(() => {
   const duplicated = useMemo(() => [...trustLogos, ...trustLogos, ...trustLogos], []);
+  
+  const transitionConfig = useMemo(() => ({
+    x: {
+      repeat: Infinity,
+      repeatType: "loop",
+      duration: 20,
+      ease: "linear",
+    },
+  }), []);
 
   return (
     <div className="relative mt-5 w-full overflow-hidden">
@@ -181,14 +207,8 @@ const LogoMarquee = React.memo(() => {
       <motion.div
         className="flex w-max items-center gap-14 sm:gap-20 lg:gap-24"
         animate={{ x: ["0%", "-33.333%"] }}
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 20,
-            ease: "linear",
-          },
-        }}
+        transition={transitionConfig}
+        style={{ willChange: "transform" }}
       >
         {duplicated.map((logo, i) => (
           <img
@@ -196,7 +216,11 @@ const LogoMarquee = React.memo(() => {
             src={logo.src}
             alt={logo.alt}
             loading="lazy"
+            decoding="async"
+            width="auto"
+            height="36"
             className="h-9 w-auto shrink-0 opacity-50 grayscale transition-all duration-300 ease-out hover:scale-105 hover:opacity-100 hover:grayscale-0 sm:h-11 md:h-12 lg:h-14"
+            style={{ contentVisibility: "auto" }}
           />
         ))}
       </motion.div>
@@ -210,8 +234,9 @@ LogoMarquee.displayName = "LogoMarquee";
 export default function Hero() {
   const navigate = useNavigate();
   const prefersReducedMotion = useReducedMotion();
+  const sectionRef = useRef(null);
 
-  // Memoized scroll handler
+  // Memoized scroll handler with ref for better performance
   const scrollToForm = useCallback(() => {
     const formSection = document.getElementById("form-section");
     if (formSection) {
@@ -224,8 +249,35 @@ export default function Hero() {
     navigate("/contact");
   }, [navigate]);
 
+  // Memoize animation configs that don't change
+  const buttonHoverAnimations = useMemo(() => ({
+    primary: { scale: 1.02 },
+    tap: { scale: 0.98 },
+  }), []);
+
+  const imageAnimationProps = useMemo(() => ({
+    initial: { opacity: 0, scale: 0.92, y: 30 },
+    animate: { opacity: 1, scale: 1, y: 0 },
+    transition: { duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }
+  }), []);
+
+  const floatAnimation = useMemo(() => ({
+    animate: { y: [0, -10, 0] },
+    transition: { duration: 2.8, repeat: Infinity, ease: "easeInOut" }
+  }), []);
+
+  const gradientTextAnimation = useMemo(() => ({
+    initial: prefersReducedMotion ? {} : { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { delay: 1.2, duration: 0.6 }
+  }), [prefersReducedMotion]);
+
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-white font-sans">
+    <section 
+      ref={sectionRef}
+      className="relative w-full min-h-screen overflow-hidden bg-white font-sans"
+      style={{ contain: "layout style paint" }}
+    >
       <motion.div
         variants={container}
         initial="hidden"
@@ -248,13 +300,11 @@ export default function Hero() {
           >
             <SplitText 
               text="Transform Empty Spaces Into" 
-              className="block lg:inline" // Changed from "block" to "block lg:inline" to fix spacing
+              className="block lg:inline"
             />
-            {" "} {/* Added explicit space between the two lines */}
+            {" "}
             <motion.span
-              initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.6 }}
+              {...gradientTextAnimation}
               className="whitespace-nowrap bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent"
             >
               Revenue Opportunity
@@ -265,15 +315,19 @@ export default function Hero() {
         {/* Image - Right Side on Desktop */}
         <div className="relative order-2 mx-auto flex w-full max-w-[24rem] items-center justify-center sm:max-w-lg md:max-w-152 lg:order-2 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:mt-0 lg:max-w-none">
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            {...imageAnimationProps}
             className="relative w-full max-w-[24rem] sm:max-w-lg md:max-w-152 lg:max-w-184"
           >
-            <div className="relative z-10 w-full mb-4 flex items-center justify-center" style={{ minHeight: "clamp(350px, 60vh, 250px)", marginTop: "-1.5rem" }}>
+            <div 
+              className="relative z-10 w-full mb-4 flex items-center justify-center" 
+              style={{ 
+                minHeight: "clamp(350px, 60vh, 250px)", 
+                marginTop: "-1.5rem",
+                contain: "layout style paint"
+              }}
+            >
               <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+                {...floatAnimation}
                 className="relative"
                 style={{ willChange: "transform" }}
               >
@@ -281,11 +335,14 @@ export default function Hero() {
                   src={heroImage}
                   alt="Smart Vending Machine"
                   loading="eager"
+                  decoding="async"
                   className="w-full max-w-[220px] sm:max-w-[280px] object-contain rounded-3xl"
                   style={{
                     border: "8px solid #ffffff",
                     boxShadow: "none"
                   }}
+                  width="280"
+                  height="auto"
                 />
               </motion.div>
             </div>
@@ -311,10 +368,11 @@ export default function Hero() {
             className="mt-5 flex flex-row items-center justify-center gap-2 sm:gap-3 lg:mt-7 lg:justify-start"
           >
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={buttonHoverAnimations.primary}
+              whileTap={buttonHoverAnimations.tap}
               onClick={scrollToForm}
               className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-primary to-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:from-primary/90 hover:to-accent/90 sm:px-6 sm:py-3 sm:text-base"
+              style={{ willChange: "transform" }}
             >
               <span className="relative z-10">Request a Machine</span>
               <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -322,10 +380,11 @@ export default function Hero() {
             </motion.button>
 
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={buttonHoverAnimations.primary}
+              whileTap={buttonHoverAnimations.tap}
               onClick={handleContactClick}
               className="inline-flex items-center justify-center gap-1.5 rounded-full border-2 border-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-700 transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary sm:px-6 sm:py-3 sm:text-base"
+              style={{ willChange: "transform" }}
             >
               Call us
             </motion.button>

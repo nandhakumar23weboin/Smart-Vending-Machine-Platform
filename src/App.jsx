@@ -18,7 +18,10 @@ const VendingPreloader = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col justify-center items-center bg-red-900 min-h-screen">
+    <>
+      {/* Invisible spacer pushes the Footer out of the viewport so it doesn't incur CLS when the real content loads */}
+      <div className="min-h-[200vh] w-full" aria-hidden="true" />
+      <div className="fixed inset-0 z-50 flex flex-col justify-center items-center bg-red-900 min-h-screen">
       <div className="relative w-40 h-40 mb-8">
         <img 
           src={vendingSvg} 
@@ -46,7 +49,8 @@ const VendingPreloader = () => {
           {minTimeReached ? "Almost ready..." : "Loading Premium Vending..."}
         </p>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

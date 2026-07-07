@@ -19,7 +19,7 @@ const Footer = () => {
   const isInView = useInView(footerRef, { once: true, margin: "-50px" });
 
   const fadeUpVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 }, // Added small y offset for smoother animation
     visible: (custom = 0) => ({
       opacity: 1,
       y: 0,
@@ -82,15 +82,19 @@ const Footer = () => {
   ];
 
   return (
-    <footer ref={footerRef} className="relative">
-      {/* Wave Divider at Top */}
-      <div className="relative w-full overflow-hidden leading-none bg-white">
+    <footer ref={footerRef} className="relative overflow-hidden">
+      {/* Wave Divider at Top - Fixed CLS issue */}
+      <div 
+        className="relative w-full bg-white"
+        style={{ height: '50px' }} // Fixed base height to prevent CLS
+      >
         <svg
           viewBox="0 0 1440 120"
-          className="relative block w-full h-[40px] sm:h-[50px] lg:h-[70px]"
+          className="relative block w-full h-full"
           preserveAspectRatio="none"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          // Removed dynamic height classes, using container height instead
         >
           <path
             d="M0 60 
@@ -123,6 +127,7 @@ const Footer = () => {
               animate={isInView ? "visible" : "hidden"}
               custom={0}
               className="col-span-2 lg:col-span-4"
+              style={{ minHeight: '300px' }} // Reserve space to prevent layout shift
             >
               <div className="flex items-center gap-2.5 mb-4">
                 <div className="w-10 h-10 bg-gradient-to-br from-red-400 to-red-500 rounded-xl flex items-center justify-center shadow-lg shadow-red-900/30">
@@ -153,7 +158,7 @@ const Footer = () => {
                 ))}
               </div>
 
-              {/* Social Links */}
+              {/* Social Links - Fixed dimensions */}
               <div className="flex items-center gap-3">
                 {socialLinks.map((social, index) => (
                   <motion.a
@@ -162,6 +167,7 @@ const Footer = () => {
                     whileHover={{ scale: 1.1, y: -2 }}
                     className="w-9 h-9 rounded-full bg-red-900/40 border border-red-700/30 flex items-center justify-center text-red-200/70 hover:bg-red-800 hover:text-white hover:border-red-500/50 transition-all duration-300 shadow-sm"
                     aria-label={social.label}
+                    style={{ minWidth: '36px', minHeight: '36px' }} // Fixed dimensions
                   >
                     <social.icon className="w-4 h-4" />
                   </motion.a>
@@ -176,6 +182,7 @@ const Footer = () => {
               animate={isInView ? "visible" : "hidden"}
               custom={1}
               className="col-span-1 lg:col-span-2"
+              style={{ minHeight: '200px' }} // Reserve space
             >
               <h3 className="text-white font-semibold text-xs uppercase tracking-[0.15em] mb-5 opacity-90">
                 Quick Links
@@ -205,6 +212,7 @@ const Footer = () => {
               animate={isInView ? "visible" : "hidden"}
               custom={2}
               className="col-span-1 lg:col-span-3"
+              style={{ minHeight: '200px' }} // Reserve space
             >
               <h3 className="text-white font-semibold text-xs uppercase tracking-[0.15em] mb-5 opacity-90">
                 Category
@@ -234,6 +242,7 @@ const Footer = () => {
               animate={isInView ? "visible" : "hidden"}
               custom={3}
               className="col-span-2 lg:col-span-3"
+              style={{ minHeight: '250px' }} // Reserve space
             >
               <h3 className="text-white font-semibold text-xs uppercase tracking-[0.15em] mb-5 opacity-90">
                 Contact
