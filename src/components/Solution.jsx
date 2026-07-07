@@ -63,7 +63,7 @@ const solutions = [
     features: [
       { icon: <Palette size={14} />, text: "Full Customization" },
       { icon: <Shield size={14} />, text: "Brand Protection" },
-      { icon: <ShoppingBag size={14} />, text: "Premium Experience" },
+      { icon: <ShoppingBag size={14} />, text: "Premium Feel" },
     ],
   },
   {
@@ -79,7 +79,7 @@ const solutions = [
     features: [
       { icon: <Settings size={14} />, text: "Auto Management" },
       { icon: <CreditCard size={14} />, text: "Smart Payments" },
-      { icon: <Wifi size={14} />, text: "Remote Monitoring" },
+      { icon: <Wifi size={14} />, text: "Remote Monitor" },
     ],
   },
 ];
@@ -162,7 +162,7 @@ const ImageStack = memo(({ solutions, activeIndex }) => {
       style={{
         position: "relative",
         width: "100%",
-        maxWidth: isMobile ? "320px" : "450px",
+        maxWidth: isMobile ? "380px" : "450px",
         height: isMobile ? "200px" : "280px",
         margin: "0 auto",
         perspective: "1000px",
@@ -206,11 +206,11 @@ const FeatureTag = memo(({ icon, text }) => (
       display: "inline-flex",
       alignItems: "center",
       gap: "0.3rem",
-      padding: "0.3rem 0.5rem",
+      padding: "0.25rem 0.45rem",
       borderRadius: "0.5rem",
       background: "rgba(159, 7, 18, 0.06)",
       border: "1px solid rgba(159, 7, 18, 0.12)",
-      fontSize: "clamp(0.62rem, 1vw, 0.75rem)",
+      fontSize: "clamp(0.6rem, 0.9vw, 0.7rem)",
       color: "#9F0712",
       fontWeight: 500,
       fontFamily: "'Plus Jakarta Sans', sans-serif",
@@ -223,8 +223,49 @@ const FeatureTag = memo(({ icon, text }) => (
 ));
 FeatureTag.displayName = "FeatureTag";
 
+// ── Progress dots ──
+const ProgressDots = memo(({ total, activeIndex, onSelect }) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "0.4rem",
+      paddingTop: "0.5rem",
+      marginTop: "auto",
+    }}
+  >
+    {Array.from({ length: total }).map((_, i) => (
+      <button
+        key={i}
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect(i);
+        }}
+        aria-label={`Go to slide ${i + 1}`}
+        style={{
+          width: i === activeIndex ? "20px" : "7px",
+          height: "7px",
+          borderRadius: "999px",
+          border: "none",
+          cursor: "pointer",
+          padding: 0,
+          background: i === activeIndex 
+            ? "linear-gradient(135deg, #9F0712 0%, #dc2626 100%)" 
+            : "rgba(159, 7, 18, 0.2)",
+          boxShadow: i === activeIndex 
+            ? "0 2px 6px rgba(159, 7, 18, 0.3)" 
+            : "none",
+          transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        }}
+      />
+    ))}
+  </div>
+));
+ProgressDots.displayName = "ProgressDots";
+
 // ── Solution content ──
-const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInteractionStart, onInteractionEnd }) => {
+const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInteractionStart, onInteractionEnd, totalSolutions, onDotSelect }) => {
   const [isMobile, setIsMobile] = useState(false);
   
   useEffect(() => {
@@ -259,16 +300,16 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
       <div style={{ 
         display: "flex", 
         alignItems: "center", 
-        gap: "0.75rem", 
-        marginBottom: "clamp(0.75rem, 1.5vw, 1rem)", 
+        gap: "0.6rem", 
+        marginBottom: "clamp(0.6rem, 1.2vw, 0.8rem)", 
         flexShrink: 0,
         justifyContent: isMobile ? "center" : "flex-start",
         flexWrap: "wrap",
       }}>
         <div
           style={{
-            width: 44,
-            height: 44,
+            width: 38,
+            height: 38,
             borderRadius: "0.75rem",
             background: "linear-gradient(135deg, rgba(159, 7, 18, 0.1) 0%, rgba(159, 7, 18, 0.05) 100%)",
             border: "1px solid rgba(159, 7, 18, 0.15)",
@@ -279,15 +320,15 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
             flexShrink: 0,
           }}
         >
-          {React.cloneElement(solution.icon, { size: 20 })}
+          {React.cloneElement(solution.icon, { size: 18 })}
         </div>
         <span
           style={{
-            padding: "0.25rem 0.75rem",
+            padding: "0.2rem 0.6rem",
             borderRadius: "9999px",
             background: "rgba(159, 7, 18, 0.08)",
             color: "#9F0712",
-            fontSize: "clamp(0.7rem, 1vw, 0.8rem)",
+            fontSize: "clamp(0.65rem, 0.9vw, 0.75rem)",
             fontWeight: 600,
             fontFamily: "'Plus Jakarta Sans', sans-serif",
             border: "1px solid rgba(159, 7, 18, 0.15)",
@@ -303,7 +344,7 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
         display: "flex", 
         flexDirection: isMobile ? "column" : "row",
         flexWrap: "nowrap", 
-        gap: "clamp(0.5rem, 1vw, 1rem)", 
+        gap: "clamp(0.4rem, 0.8vw, 0.8rem)", 
         flex: 1, 
         minHeight: 0,
         width: "100%",
@@ -323,15 +364,15 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
           <div style={{
             display: "flex",
             alignItems: "center",
-            gap: "0.5rem",
-            marginBottom: "clamp(0.5rem, 0.8vw, 0.75rem)",
+            gap: "0.4rem",
+            marginBottom: "clamp(0.4rem, 0.6vw, 0.6rem)",
             justifyContent: isMobile ? "center" : "flex-start",
             width: "100%",
           }}>
             <motion.h3
               style={{
                 color: "#111827",
-                fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
+                fontSize: "clamp(1rem, 1.8vw, 1.3rem)",
                 lineHeight: 1.3,
                 fontWeight: 700,
                 fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', 'Plus Jakarta Sans', sans-serif",
@@ -346,8 +387,8 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
               src={ribbonSvg}
               alt="Ribbon"
               style={{
-                width: isMobile ? "32px" : "40px",
-                height: isMobile ? "32px" : "40px",
+                width: isMobile ? "28px" : "34px",
+                height: isMobile ? "28px" : "34px",
                 flexShrink: 0,
                 filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.1))",
               }}
@@ -361,9 +402,9 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
           <motion.p
             style={{
               color: "#6B7280",
-              fontSize: "clamp(0.85rem, 1.2vw, 0.95rem)",
-              lineHeight: 1.55,
-              marginBottom: "clamp(0.75rem, 1.2vw, 1rem)",
+              fontSize: "clamp(0.78rem, 1vw, 0.88rem)",
+              lineHeight: 1.5,
+              marginBottom: "clamp(0.6rem, 1vw, 0.8rem)",
               fontFamily: "'Plus Jakarta Sans', Inter, ui-sans-serif, system-ui, sans-serif",
               textAlign: isMobile ? "center" : "left",
               width: "100%",
@@ -381,10 +422,10 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
         style={{
           display: "flex",
           flexDirection: "row",
-          gap: "0.5rem",
+          gap: "0.4rem",
           justifyContent: isMobile ? "center" : "flex-start",
           flexWrap: "wrap",
-          marginBottom: "clamp(0.75rem, 1.2vw, 1rem)",
+          marginBottom: "clamp(0.6rem, 1vw, 0.8rem)",
           flexShrink: 0,
           width: "100%",
         }}
@@ -398,7 +439,7 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
       <div
         style={{
           borderTop: "1px solid #f3f4f6",
-          paddingTop: "clamp(0.75rem, 1vw, 0.75rem)",
+          paddingTop: "clamp(0.6rem, 0.8vw, 0.7rem)",
           flexShrink: 0,
           display: "flex",
           justifyContent: isMobile ? "center" : "flex-start",
@@ -415,16 +456,16 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: "0.5rem",
+            gap: "0.4rem",
             background: "linear-gradient(135deg, #9F0712 0%, #7f1d1d 100%)",
             color: "#ffffff",
             fontWeight: 600,
-            fontSize: "clamp(0.85rem, 1.1vw, 0.95rem)",
-            padding: "clamp(0.65rem, 1vw, 0.8rem) clamp(1.5rem, 2vw, 2rem)",
-            borderRadius: "0.75rem",
+            fontSize: "clamp(0.78rem, 1vw, 0.88rem)",
+            padding: "clamp(0.5rem, 0.8vw, 0.65rem) clamp(1.2rem, 1.8vw, 1.6rem)",
+            borderRadius: "0.7rem",
             border: "none",
             cursor: "pointer",
-            boxShadow: "0 4px 16px rgba(159, 7, 18, 0.25), 0 1px 3px rgba(0,0,0,0.1)",
+            boxShadow: "0 3px 12px rgba(159, 7, 18, 0.25), 0 1px 3px rgba(0,0,0,0.1)",
             fontFamily: "'Tiktoksans Variablefont Opsz Slnt Wdth Wght', 'Plus Jakarta Sans', sans-serif",
             transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
             whiteSpace: "nowrap",
@@ -432,25 +473,32 @@ const SolutionContent = memo(({ solution, activeIndex, onScrollToForm, onInterac
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = "linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%)";
-            e.currentTarget.style.boxShadow = "0 6px 24px rgba(159, 7, 18, 0.35), 0 2px 6px rgba(0,0,0,0.15)";
+            e.currentTarget.style.boxShadow = "0 4px 18px rgba(159, 7, 18, 0.35), 0 2px 6px rgba(0,0,0,0.15)";
             e.currentTarget.style.transform = "translateY(-1px)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = "linear-gradient(135deg, #9F0712 0%, #7f1d1d 100%)";
-            e.currentTarget.style.boxShadow = "0 4px 16px rgba(159, 7, 18, 0.25), 0 1px 3px rgba(0,0,0,0.1)";
+            e.currentTarget.style.boxShadow = "0 3px 12px rgba(159, 7, 18, 0.25), 0 1px 3px rgba(0,0,0,0.1)";
             e.currentTarget.style.transform = "translateY(0px)";
           }}
         >
           {solution.buttonText}
           <motion.div
             initial={{ x: 0 }}
-            whileHover={{ x: 5 }}
+            whileHover={{ x: 4 }}
             transition={{ duration: 0.2 }}
           >
-            <ArrowRight size={16} />
+            <ArrowRight size={14} />
           </motion.div>
         </motion.button>
       </div>
+
+      {/* Progress Dots */}
+      <ProgressDots 
+        total={totalSolutions} 
+        activeIndex={activeIndex} 
+        onSelect={onDotSelect} 
+      />
     </motion.div>
   );
 });
@@ -905,10 +953,10 @@ const Solution = () => {
             <div
               style={{
                 background: "#ffffff",
-                borderRadius: "1.5rem",
+                borderRadius: "1.25rem",
                 border: "1px solid rgba(0,0,0,0.06)",
                 boxShadow: "0 20px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)",
-                padding: "clamp(1rem, 2vw, 2rem)",
+                padding: "clamp(0.9rem, 1.6vw, 1.5rem)",
                 display: "flex",
                 flexDirection: "column",
                 height: "fit-content",
@@ -916,6 +964,8 @@ const Solution = () => {
                 overflow: "hidden",
                 width: "100%",
                 boxSizing: "border-box",
+                maxWidth: "440px",
+                margin: "0 auto",
               }}
             >
               {/* Card subtle gradient overlay */}
@@ -928,8 +978,8 @@ const Solution = () => {
                   height: "3px",
                   background: "linear-gradient(90deg, #9F0712 0%, #dc2626 50%, #9F0712 100%)",
                   opacity: 0.8,
-                  borderTopLeftRadius: "1.5rem",
-                  borderTopRightRadius: "1.5rem",
+                  borderTopLeftRadius: "1.25rem",
+                  borderTopRightRadius: "1.25rem",
                   zIndex: 1,
                 }}
               />
@@ -940,6 +990,8 @@ const Solution = () => {
                 onScrollToForm={scrollToForm}
                 onInteractionStart={handleInteractionStart}
                 onInteractionEnd={handleInteractionEnd}
+                totalSolutions={solutions.length}
+                onDotSelect={handleSelect}
               />
             </div>
           </motion.div>
