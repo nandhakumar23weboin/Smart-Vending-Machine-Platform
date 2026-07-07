@@ -248,9 +248,9 @@ export default function Hero() {
           >
             <SplitText 
               text="Transform Empty Spaces Into" 
-              className="block"
+              className="block lg:inline" // Changed from "block" to "block lg:inline" to fix spacing
             />
-            <br className="sm:hidden" />
+            {" "} {/* Added explicit space between the two lines */}
             <motion.span
               initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

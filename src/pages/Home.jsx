@@ -1,27 +1,37 @@
 import React, { Suspense, lazy } from "react";
+import vendingSvg from "../assets/vending-bg.svg";
 
-// Lazy load components
-const Hero = lazy(() => import("../components/Hero"));
+// Light section loader
+const SectionLoader = ({ height = "h-64" }) => (
+  <div className={`${height} bg-red-900/5 rounded-lg w-full flex items-center justify-center border border-red-900/10`}>
+    <div className="text-center">
+      <div className="relative w-12 h-12 mx-auto">
+        <img 
+          src={vendingSvg} 
+          alt="Loading" 
+          className="w-full h-full object-contain animate-pulse"
+          style={{ 
+            filter: 'brightness(0) saturate(100%) invert(12%) sepia(63%) saturate(7412%) hue-rotate(356deg) brightness(89%) contrast(120%)',
+            animationDuration: '1s'
+          }}
+        />
+      </div>
+    </div>
+  </div>
+);
+
+// Lazy load components - FAST, no artificial delays
+const Hero = lazy(() => import(/* webpackPreload: true */ "../components/Hero"));
 const Solution = lazy(() => import("../components/Solution"));
 const Feature = lazy(() => import("../components/Feature"));
 const Testimonials = lazy(() => import("../components/Testimonials"));
 const Faq = lazy(() => import("../components/Faq"));
 const Form = lazy(() => import("../components/Form"));
 
-// Dark Red Section Loader
-const SectionLoader = ({ height = "h-64" }) => (
-  <div className={`${height} bg-red-900 animate-pulse rounded-lg w-full flex items-center justify-center`}>
-    <div className="text-center">
-      <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-white mx-auto mb-2"></div>
-      <p className="text-white text-sm">Loading section...</p>
-    </div>
-  </div>
-);
-
 export default function Home() {
   return (
     <main className="min-h-screen w-full bg-background text-text antialiased">
-      {/* Hero Section */}
+      {/* Hero Section - Immediate load */}
       <section className="px-6 py-10 mx-auto max-w-7xl">
         <Suspense fallback={<SectionLoader height="h-96" />}>
           <Hero />
