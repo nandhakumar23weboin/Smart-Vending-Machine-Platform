@@ -227,10 +227,8 @@ const Form = () => {
 
   return (
     <section className="relative w-full overflow-hidden bg-white py-4 sm:py-6 lg:py-8">
-      {/* Static background elements */}
-      <div className="pointer-events-none absolute -top-40 left-0 h-[600px] w-[600px] rounded-full bg-red-50/60 blur-[120px]" />
-      <div className="pointer-events-none absolute -bottom-40 right-0 h-[500px] w-[500px] rounded-full bg-red-50/60 blur-[100px]" />
-
+      {/* Removed background decorative elements */}
+      
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-4 lg:grid-cols-[38%_62%] lg:gap-5">
           
